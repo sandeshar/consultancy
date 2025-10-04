@@ -7,12 +7,12 @@ export default function Home() {
       <section className="relative flex flex-col items-center justify-center min-h-[90vh] text-center p-8 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-10" />
-        
+
         {/* Animated Background Elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
         <div className="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-        
+
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="mb-8 animate-fade-in-up">
@@ -23,11 +23,11 @@ export default function Home() {
               </span>
             </h1>
           </div>
-          
+
           <p className="mt-8 text-xl md:text-2xl max-w-3xl mx-auto text-blue-100 leading-relaxed animate-fade-in-up animation-delay-500">
             At <span className="font-bold text-white">BAB Consultancy</span>, we specialize in connecting businesses with top-tier talent from around the world. Our mission is to help you find the perfect candidates who can drive your business forward.
           </p>
-          
+
           <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up animation-delay-1000">
             <a href="/services" className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-full hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-2xl">
               <span className="flex items-center justify-center gap-2">
@@ -60,7 +60,7 @@ export default function Home() {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {/* Feature Cards */}
             <div className="group p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100">
@@ -95,7 +95,7 @@ export default function Home() {
           </div>
 
           <p className="max-w-3xl mx-auto text-xl text-gray-700 leading-relaxed">
-            We understand the challenges of hiring in a global market. Our team of experts is dedicated to providing 
+            We understand the challenges of hiring in a global market. Our team of experts is dedicated to providing
             <span className="font-semibold text-blue-600"> personalized solutions</span> that meet your unique needs.
           </p>
         </div>
@@ -109,7 +109,7 @@ export default function Home() {
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Comprehensive solutions for all your global hiring needs</p>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mt-6"></div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
@@ -176,7 +176,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600/20 to-purple-600/20 animate-pulse"></div>
         </div>
-        
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Ready to Transform Your
@@ -184,11 +184,11 @@ export default function Home() {
               Hiring Strategy?
             </span>
           </h2>
-          
+
           <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed">
             Take your business to the next level with global talent. Contact us today to learn more about how we can help you achieve your hiring goals.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a href="/contact" className="group px-10 py-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold rounded-full hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-300 shadow-2xl text-lg">
               <span className="flex items-center justify-center gap-2">
