@@ -4,14 +4,15 @@ export default function Contact() {
     return (
         <>
             {/* Hero Section */}
-            <section className="relative flex flex-col items-center justify-center min-h-[50vh] text-center p-8 bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900">
+            <section className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-4 py-32 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
                 <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
 
-                <div className="relative z-10 max-w-4xl mx-auto">
-                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                        Contact <span className="text-gradient bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Us</span>
+                <div className="relative z-10 max-w-5xl mx-auto space-y-8">
+                    <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                        Contact <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">Us</span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
+                    <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto font-light">
                         Get in touch with our education experts for personalized guidance
                     </p>
                 </div>
@@ -163,80 +164,83 @@ export default function Contact() {
                         </div>
 
                         {/* Contact Form */}
-                        <div className="bg-gradient-to-br from-gray-50 to-blue-50 p-8 rounded-2xl">
-                            <h3 className="text-3xl font-bold text-gray-900 mb-6">Book Free Consultation</h3>
-                            <p className="text-gray-600 mb-8">Fill out the form below and our counselors will get back to you within 24 hours.</p>
+                        <div className="bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-2xl shadow-xl border border-gray-200 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5"></div>
+                            <div className="relative z-10">
+                                <h3 className="text-4xl font-bold text-gray-900 mb-3">🎯 Book Free Consultation</h3>
+                                <p className="text-gray-600 mb-8 text-lg">Fill out the form below and our counselors will get back to you within 24 hours.</p>
 
-                            <form className="space-y-6">
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
-                                        <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your first name" required />
+                                <form className="space-y-6">
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
+                                            <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your first name" required />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
+                                            <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your last name" required />
+                                        </div>
                                     </div>
+
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
-                                        <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your last name" required />
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                                        <input type="email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="your.email@example.com" required />
                                     </div>
-                                </div>
 
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
-                                    <input type="email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="your.email@example.com" required />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
-                                    <input type="tel" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="+977-9841234567" required />
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Country</label>
-                                        <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
-                                            <option>Select Country</option>
-                                            <option>United States</option>
-                                            <option>Canada</option>
-                                            <option>United Kingdom</option>
-                                            <option>Australia</option>
-                                            <option>Germany</option>
-                                            <option>New Zealand</option>
-                                            <option>Other</option>
-                                        </select>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
+                                        <input type="tel" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="+977-9841234567" required />
                                     </div>
+
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Country</label>
+                                            <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                                <option>Select Country</option>
+                                                <option>United States</option>
+                                                <option>Canada</option>
+                                                <option>United Kingdom</option>
+                                                <option>Australia</option>
+                                                <option>Germany</option>
+                                                <option>New Zealand</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-2">Study Level</label>
+                                            <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                                <option>Select Level</option>
+                                                <option>Bachelor's Degree</option>
+                                                <option>Master's Degree</option>
+                                                <option>PhD</option>
+                                                <option>Diploma/Certificate</option>
+                                                <option>Language Course</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Study Level</label>
-                                        <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
-                                            <option>Select Level</option>
-                                            <option>Bachelor's Degree</option>
-                                            <option>Master's Degree</option>
-                                            <option>PhD</option>
-                                            <option>Diploma/Certificate</option>
-                                            <option>Language Course</option>
-                                        </select>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Field of Study</label>
+                                        <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="e.g., Computer Science, Business, Engineering" />
                                     </div>
-                                </div>
 
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Field of Study</label>
-                                    <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="e.g., Computer Science, Business, Engineering" />
-                                </div>
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                                        <textarea rows={4} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Tell us about your educational goals, questions, or any specific requirements..."></textarea>
+                                    </div>
 
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                                    <textarea rows={4} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Tell us about your educational goals, questions, or any specific requirements..."></textarea>
-                                </div>
+                                    <div className="flex items-center">
+                                        <input type="checkbox" className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" required />
+                                        <label className="ml-2 text-sm text-gray-600">
+                                            I agree to receive communication from B&B Consultancy regarding my inquiry *
+                                        </label>
+                                    </div>
 
-                                <div className="flex items-center">
-                                    <input type="checkbox" className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" required />
-                                    <label className="ml-2 text-sm text-gray-600">
-                                        I agree to receive communication from B&B Consultancy regarding my inquiry *
-                                    </label>
-                                </div>
-
-                                <button type="submit" className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                                    Send Message & Book Consultation
-                                </button>
-                            </form>
+                                    <button type="submit" className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg glow-effect btn-pulse">
+                                        🚀 Send Message & Book Consultation
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

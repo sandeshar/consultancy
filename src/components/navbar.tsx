@@ -1,25 +1,33 @@
 import Image from "next/image";
 
 const Navbar = () => {
-    const items = {
-        home: { label: "Home", href: "/" },
-        about: { label: "About", href: "/about" },
-        services: { label: "Services", href: "/services" },
-        contact: { label: "Contact", href: "/contact" },
-    };
+    const items = [
+        { label: "Home", href: "/" },
+        { label: "About", href: "/about" },
+        { label: "Services", href: "/services" },
+        { label: "Contact", href: "/contact" },
+    ];
+
     return (
-        <>
-            <nav className="flex items-center justify-between p-4 px-16 text-lg font-semibold bg-white shadow-md sticky top-0 w-full z-50 border-b border-gray-200">
-                <Image src="/bab.png" alt="Logo" width={50} height={50} />
-                <ul className="flex space-x-10">
-                    {Object.entries(items).map(([key, { label, href }]) => (
-                        <li key={key} className="relative">
-                            <a href={href} className="hover:text-blue-600 duration-200 relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-[-4px] after:left-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">{label}</a>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-        </>
+        <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-sm sticky top-0 w-full z-50 border-b border-slate-200">
+            <div className="flex items-center">
+                <Image src="/bab.png" alt="B&B Consultancy" width={40} height={40} className="rounded-lg" />
+                <span className="ml-3 text-xl font-bold text-slate-900">B&B Consultancy</span>
+            </div>
+
+            <ul className="flex space-x-8">
+                {items.map((item, index) => (
+                    <li key={index}>
+                        <a
+                            href={item.href}
+                            className="text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                        >
+                            {item.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
     );
 };
 

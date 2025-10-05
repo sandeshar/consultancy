@@ -4,37 +4,57 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-[90vh] text-center p-8 bg-gradient-to-br from-indigo-900 via-indigo-800 to-blue-900 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-10" />
+      <section className="relative flex flex-col items-center justify-center min-h-screen px-4 py-20 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
+        {/* Subtle Background */}
+        <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
 
         {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200 leading-tight">
-              Your Gateway to
-              <span className="block text-gradient bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-12">
+          <div className="space-y-6">
+            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tight">
+              Your Gateway to{" "}
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
                 Global Education
               </span>
             </h1>
+
+            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+              Transform your future with world-class international education. We guide ambitious students to their dream universities across the globe.
+            </p>
           </div>
 
-          <p className="mt-8 text-xl md:text-2xl max-w-3xl mx-auto text-blue-100 leading-relaxed opacity-90 hover:opacity-100 transition-opacity duration-1000">
-            At <span className="font-bold text-white">B&B Consultancy</span>, we help students achieve their dreams of studying abroad at top universities worldwide. From university selection to language preparation, we guide you every step of the way.
-          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="/contact" className="group px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg rounded-2xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+              Start Your Journey
+              <svg className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <a href="/services" className="px-10 py-5 border-2 border-slate-300 text-slate-300 font-bold text-lg rounded-2xl hover:bg-white hover:text-slate-900 hover:border-white transform hover:scale-105 transition-all duration-300">
+              Explore Services
+            </a>
+          </div>
 
-          <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center opacity-80 hover:opacity-100 transition-all duration-1000">
-            <a href="/services" className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-full hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-2xl">
-              <span className="flex items-center justify-center gap-2">
-                Explore Services
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
-            </a>
-            <a href="/contact" className="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-blue-900 transform hover:scale-105 transition-all duration-300">
-              Get Started
-            </a>
+          <div className="flex items-center justify-center space-x-8 text-slate-400 text-sm">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xs">✓</span>
+              </div>
+              <span>1000+ Students Placed</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xs">25+</span>
+              </div>
+              <span>Countries</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xs">95%</span>
+              </div>
+              <span>Success Rate</span>
+            </div>
           </div>
         </div>
 
@@ -46,66 +66,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 px-8 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Why Choose <span className="text-gradient bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">B&B Consultancy</span>?
+      {/* Features Section */}
+      <section className="py-32 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
+              Why Choose
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> B&B Consultancy</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto font-light">
+              We've helped over 1000 students achieve their dreams of international education with our proven approach
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {/* Feature Cards */}
-            <div className="group p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
-                </svg>
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="group relative p-10 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl border border-blue-100 hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-500 hover:-translate-y-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-indigo-600/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative">
+                <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Global Network</h3>
+                <p className="text-slate-600 leading-relaxed text-lg">Access to 500+ partner universities across 25+ countries. We open doors to world-class institutions worldwide.</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Global University Access</h3>
-              <p className="text-gray-600 leading-relaxed">We connect you with top universities worldwide, expanding your educational opportunities beyond borders.</p>
             </div>
 
-            <div className="group p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="group relative p-10 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl border border-purple-100 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-500 hover:-translate-y-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-pink-600/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative">
+                <div className="w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Expert Guidance</h3>
+                <p className="text-slate-600 leading-relaxed text-lg">15+ years of experience with 95% success rate. Our counselors are your dedicated partners in success.</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Expert Application Guidance</h3>
-              <p className="text-gray-600 leading-relaxed">Our experienced consultants guide you through every step of the application process, from choosing the right course to preparing documents.</p>
             </div>
 
-            <div className="group p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+            <div className="group relative p-10 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl border border-emerald-100 hover:shadow-2xl hover:shadow-emerald-100/50 transition-all duration-500 hover:-translate-y-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 to-teal-600/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative">
+                <div className="w-20 h-20 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Complete Support</h3>
+                <p className="text-slate-600 leading-relaxed text-lg">End-to-end assistance from university selection to visa approval and pre-departure orientation.</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Personalized End-to-End Support</h3>
-              <p className="text-gray-600 leading-relaxed">From university selection to visa assistance, we provide tailored support for your entire study abroad journey.</p>
             </div>
           </div>
-
-          <p className="max-w-3xl mx-auto text-xl text-gray-700 leading-relaxed">
-            We understand the complexities of international education. Our experienced counselors provide
-            <span className="font-semibold text-blue-600"> personalized guidance</span> to help you achieve your academic dreams and build a successful future.
-          </p>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-20 px-8 bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Services</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Comprehensive support for your international education journey</p>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mt-6"></div>
+      <section className="py-32 px-4 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
+              Complete
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> Education Solutions</span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto font-light">
+              From initial consultation to successful placement, we provide comprehensive support for every step of your international education journey
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8">
             {[
               {
                 icon: (
@@ -115,7 +145,8 @@ export default function Home() {
                   </svg>
                 ),
                 title: "University Selection",
-                description: "Expert guidance to choose the right universities and programs that match your career goals and academic background"
+                description: "Expert guidance to choose the right universities and programs that match your career goals and academic background",
+                color: "from-blue-500 to-blue-600"
               },
               {
                 icon: (
@@ -123,17 +154,9 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                   </svg>
                 ),
-                title: "Application Assistance",
-                description: "Complete support with application forms, essays, and document preparation for university admissions"
-              },
-              {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                ),
-                title: "Language Classes",
-                description: "Comprehensive IELTS, TOEFL, and other language preparation courses to meet university requirements"
+                title: "Application Support",
+                description: "Complete assistance with applications, essays, and document preparation for admissions",
+                color: "from-purple-500 to-purple-600"
               },
               {
                 icon: (
@@ -141,17 +164,9 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 ),
-                title: "Visa Guidance",
-                description: "Step-by-step assistance with visa applications, documentation, and interview preparation"
-              },
-              {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                ),
-                title: "Financial Planning",
-                description: "Scholarship guidance, loan assistance, and budget planning for your education abroad"
+                title: "Visa & Language",
+                description: "Complete visa guidance and IELTS/TOEFL preparation with expert instructors",
+                color: "from-emerald-500 to-emerald-600"
               },
               {
                 icon: (
@@ -163,12 +178,15 @@ export default function Home() {
                 description: "Orientation sessions, accommodation assistance, and cultural preparation for your study abroad journey"
               }
             ].map((service, index) => (
-              <div key={index} className="group p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200">
-                <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
-                  {service.icon}
+              <div key={index} className="group relative p-8 bg-white rounded-3xl border border-slate-100 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 hover:-translate-y-1">
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-50/50 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">{service.title}</h3>
+                  <p className="text-slate-600 leading-relaxed">{service.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{service.description}</p>
               </div>
             ))}
           </div>
@@ -176,55 +194,49 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-8 bg-gradient-to-r from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
-        {/* Background Animation */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Ready to Start Your
-            <span className="block text-gradient bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-              Study Abroad Journey?
+      <section className="py-32 px-4 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
+            Ready to Transform
+            <span className="block bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              Your Future?
             </span>
           </h2>
 
-          <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Turn your dreams of international education into reality. Contact us today to begin your journey to world-class universities and unlock global opportunities.
+          <p className="text-xl md:text-2xl text-slate-300 mb-16 max-w-3xl mx-auto font-light">
+            Join thousands of successful students who've transformed their lives through international education. Your journey to a world-class education starts with a single conversation.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a href="/contact" className="group px-10 py-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold rounded-full hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-300 shadow-2xl text-lg">
-              <span className="flex items-center justify-center gap-2">
-                Book Free Consultation
-                <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+            <a href="/contact" className="group px-12 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xl rounded-2xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-2xl">
+              Book Free Consultation
+              <svg className="inline-block ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </a>
-            <a href="/services" className="px-10 py-5 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-blue-900 transform hover:scale-105 transition-all duration-300 text-lg">
-              View Programs
+            <a href="/services" className="px-12 py-6 border-2 border-slate-300 text-slate-300 font-bold text-xl rounded-2xl hover:bg-white hover:text-slate-900 hover:border-white transform hover:scale-105 transition-all duration-300">
+              Explore Services
             </a>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-white/20">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">1000+</div>
-              <div className="text-blue-200">Students Placed</div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-16 border-t border-slate-700">
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-3">1000+</div>
+              <div className="text-slate-400 text-lg font-medium">Students Placed</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">25+</div>
-              <div className="text-blue-200">Countries</div>
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">25+</div>
+              <div className="text-slate-400 text-lg font-medium">Countries</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">95%</div>
-              <div className="text-blue-200">Visa Success Rate</div>
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-3">95%</div>
+              <div className="text-slate-400 text-lg font-medium">Success Rate</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">15+</div>
-              <div className="text-blue-200">Years Experience</div>
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent mb-3">15+</div>
+              <div className="text-slate-400 text-lg font-medium">Years Experience</div>
             </div>
           </div>
         </div>

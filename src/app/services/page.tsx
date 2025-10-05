@@ -4,14 +4,15 @@ export default function Services() {
     return (
         <>
             {/* Hero Section */}
-            <section className="relative flex flex-col items-center justify-center min-h-[60vh] text-center p-8 bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900">
+            <section className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-4 py-32 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
                 <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
 
-                <div className="relative z-10 max-w-4xl mx-auto">
-                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                        Our <span className="text-gradient bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Services</span>
+                <div className="relative z-10 max-w-5xl mx-auto space-y-8">
+                    <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                        Our <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">Services</span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
+                    <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto font-light">
                         Comprehensive support for your international education journey
                     </p>
                 </div>
@@ -91,22 +92,25 @@ export default function Services() {
                                 features: ["Pre-departure orientation", "Accommodation assistance", "Travel booking support", "Cultural preparation"]
                             }
                         ].map((service, index) => (
-                            <div key={index} className="group p-8 bg-gradient-to-b from-gray-50 to-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-200">
-                                <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform">
-                                    {service.icon}
+                            <div key={index} className="group p-8 bg-gradient-to-b from-gray-50 to-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-3 transition-all duration-500 border border-gray-200 card-hover relative overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div className="relative z-10">
+                                    <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl">
+                                        {service.icon}
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center group-hover:text-blue-600 transition-colors">{service.title}</h3>
+                                    <p className="text-gray-600 leading-relaxed mb-6 text-center group-hover:text-gray-700">{service.description}</p>
+                                    <ul className="space-y-3">
+                                        {service.features.map((feature, fIndex) => (
+                                            <li key={fIndex} className="flex items-center text-sm text-gray-600 bg-gray-50 p-2 rounded-lg group-hover:bg-blue-50 transition-colors">
+                                                <svg className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span className="font-medium">{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">{service.title}</h3>
-                                <p className="text-gray-600 leading-relaxed mb-6 text-center">{service.description}</p>
-                                <ul className="space-y-2">
-                                    {service.features.map((feature, fIndex) => (
-                                        <li key={fIndex} className="flex items-center text-sm text-gray-600">
-                                            <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
                             </div>
                         ))}
                     </div>

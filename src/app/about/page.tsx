@@ -4,43 +4,48 @@ export default function About() {
     return (
         <>
             {/* Hero Section */}
-            <section className="relative flex flex-col items-center justify-center min-h-[60vh] text-center p-8 bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900">
+            <section className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-4 py-32 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
                 <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
 
-                <div className="relative z-10 max-w-4xl mx-auto">
-                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                        About <span className="text-gradient bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">B&B Consultancy</span>
+                <div className="relative z-10 max-w-5xl mx-auto space-y-8">
+                    <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                        About <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">B&B Consultancy</span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-                        Empowering students to achieve their international education dreams since 2009
+                    <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto font-light">
+                        Empowering ambitious students to achieve their international education dreams since 2009
                     </p>
                 </div>
             </section>
 
             {/* Our Story Section */}
-            <section className="py-20 px-8 bg-white">
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
-                            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Founded in 2009, B&B Consultancy has been at the forefront of international education consulting in Nepal. What started as a small initiative to help local students access global education has grown into a trusted partner for thousands of students worldwide.
-                            </p>
-                            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Over the years, we have built strong relationships with universities across 25+ countries, helping over 1000 students achieve their academic goals and career aspirations through quality international education.
-                            </p>
-                            <p className="text-lg text-gray-700 leading-relaxed">
-                                Our commitment to excellence, personalized service, and successful outcomes has made us one of the most trusted education consultancies in the region.
-                            </p>
+            <section className="py-32 px-4 bg-white">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <div className="space-y-8">
+                            <h2 className="text-5xl md:text-6xl font-black text-slate-900 leading-tight">
+                                Our <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Story</span>
+                            </h2>
+                            <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
+                                <p>
+                                    Founded in 2009, B&B Consultancy began as a vision to bridge the gap between ambitious Nepalese students and world-class international education. What started as a small initiative has evolved into a trusted partner for thousands of students across the globe.
+                                </p>
+                                <p>
+                                    Over 15 years, we've cultivated strong partnerships with 500+ universities across 25+ countries, helping over 1000 students transform their lives through quality international education. Our success stories span from undergraduate programs to PhD research opportunities.
+                                </p>
+                                <p>
+                                    Our unwavering commitment to excellence, personalized service, and proven results has established us as the most trusted education consultancy in the region.
+                                </p>
+                            </div>
                         </div>
                         <div className="relative">
-                            <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-8 rounded-2xl text-white">
-                                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-                                <p className="text-lg leading-relaxed mb-6">
+                            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-10 rounded-3xl text-white shadow-2xl">
+                                <h3 className="text-3xl font-bold mb-6">Our Mission</h3>
+                                <p className="text-lg leading-relaxed mb-8 font-light">
                                     To bridge the gap between ambitious students and world-class educational opportunities, providing comprehensive support that transforms dreams into reality.
                                 </p>
-                                <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-                                <p className="text-lg leading-relaxed">
+                                <h3 className="text-3xl font-bold mb-6">Our Vision</h3>
+                                <p className="text-lg leading-relaxed font-light">
                                     To be the leading education consultancy that empowers students globally, creating pathways to success through international education and cultural exchange.
                                 </p>
                             </div>
@@ -50,10 +55,12 @@ export default function About() {
             </section>
 
             {/* Our Values Section */}
-            <section className="py-20 px-8 bg-gradient-to-b from-gray-50 to-white">
-                <div className="max-w-6xl mx-auto text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Core Values</h2>
-                    <p className="text-xl text-gray-600 mb-16 max-w-3xl mx-auto">
+            <section className="py-32 px-4 bg-gradient-to-b from-slate-50 to-white">
+                <div className="max-w-7xl mx-auto text-center">
+                    <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
+                        Our Core <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Values</span>
+                    </h2>
+                    <p className="text-xl text-slate-600 mb-20 max-w-3xl mx-auto font-light">
                         The principles that guide everything we do
                     </p>
 
@@ -122,29 +129,35 @@ export default function About() {
                                 name: "Rajesh Sharma",
                                 position: "Founder & CEO",
                                 experience: "15+ years in education consulting",
-                                specialization: "University partnerships & strategic planning"
+                                specialization: "University partnerships & strategic planning",
+                                emoji: "👨‍💼"
                             },
                             {
                                 name: "Priya Patel",
                                 position: "Head of Student Counseling",
                                 experience: "12+ years in student guidance",
-                                specialization: "Application processing & visa guidance"
+                                specialization: "Application processing & visa guidance",
+                                emoji: "👩‍🎓"
                             },
                             {
                                 name: "Michael Johnson",
                                 position: "Language Training Director",
                                 experience: "10+ years in language education",
-                                specialization: "IELTS, TOEFL & academic English"
+                                specialization: "IELTS, TOEFL & academic English",
+                                emoji: "👨‍🏫"
                             }
                         ].map((member, index) => (
-                            <div key={index} className="bg-gradient-to-b from-gray-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-2xl font-bold">
-                                    {member.name.split(' ').map(n => n[0]).join('')}
+                            <div key={index} className="bg-gradient-to-b from-gray-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 card-hover relative overflow-hidden group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div className="relative z-10">
+                                    <div className="w-28 h-28 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-4xl font-bold group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xl">
+                                        {member.emoji}
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{member.name}</h3>
+                                    <p className="text-blue-600 font-semibold mb-4 text-lg">{member.position}</p>
+                                    <p className="text-gray-600 mb-3 font-medium">⏱️ {member.experience}</p>
+                                    <p className="text-sm text-gray-500 italic bg-gray-100 p-3 rounded-lg">🎯 {member.specialization}</p>
                                 </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                                <p className="text-blue-600 font-semibold mb-4">{member.position}</p>
-                                <p className="text-gray-600 mb-2">{member.experience}</p>
-                                <p className="text-sm text-gray-500 italic">{member.specialization}</p>
                             </div>
                         ))}
                     </div>
