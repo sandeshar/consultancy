@@ -75,9 +75,9 @@ export default function Contact() {
                                     <div>
                                         <h3 className="text-xl font-semibold text-gray-900 mb-2">Email Us</h3>
                                         <p className="text-gray-600">
-                                            General Inquiry: info@babconsultancy.com<br />
-                                            Admissions: admissions@babconsultancy.com<br />
-                                            Support: support@babconsultancy.com
+                                            General Inquiry: info@bbconsultancy.com<br />
+                                            Admissions: admissions@bbconsultancy.com<br />
+                                            Support: support@bbconsultancy.com
                                         </p>
                                     </div>
                                 </div>
@@ -184,7 +184,7 @@ export default function Contact() {
                                 <div className="flex items-center">
                                     <input type="checkbox" className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" required />
                                     <label className="ml-2 text-sm text-gray-600">
-                                        I agree to receive communication from BAB Consultancy regarding my inquiry *
+                                        I agree to receive communication from B&B Consultancy regarding my inquiry *
                                     </label>
                                 </div>
 
@@ -225,7 +225,7 @@ export default function Contact() {
                                 icon: "📧",
                                 title: "Email Support",
                                 description: "Detailed queries and document review",
-                                action: "Email: support@babconsultancy.com",
+                                action: "Email: support@bbconsultancy.com",
                                 bgColor: "from-blue-500 to-indigo-600"
                             }
                         ].map((service, index) => (

@@ -9,7 +9,7 @@ export default function About() {
 
                 <div className="relative z-10 max-w-4xl mx-auto">
                     <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                        About <span className="text-gradient bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">BAB Consultancy</span>
+                        About <span className="text-gradient bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">B&B Consultancy</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
                         Empowering students to achieve their international education dreams since 2009
@@ -24,7 +24,7 @@ export default function About() {
                         <div>
                             <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
                             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Founded in 2009, BAB Consultancy has been at the forefront of international education consulting in Nepal. What started as a small initiative to help local students access global education has grown into a trusted partner for thousands of students worldwide.
+                                Founded in 2009, B&B Consultancy has been at the forefront of international education consulting in Nepal. What started as a small initiative to help local students access global education has grown into a trusted partner for thousands of students worldwide.
                             </p>
                             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                                 Over the years, we have built strong relationships with universities across 25+ countries, helping over 1000 students achieve their academic goals and career aspirations through quality international education.
@@ -154,7 +154,7 @@ export default function About() {
             {/* Why Choose Us Section */}
             <section className="py-20 px-8 bg-gradient-to-br from-blue-50 to-indigo-100">
                 <div className="max-w-6xl mx-auto text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16">Why Students Choose BAB Consultancy</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16">Why Students Choose B&B Consultancy</h2>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
@@ -206,7 +206,7 @@ export default function About() {
                         Ready to Start Your Journey?
                     </h2>
                     <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                        Join thousands of successful students who have achieved their dreams with BAB Consultancy
+                        Join thousands of successful students who have achieved their dreams with B&B Consultancy
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <a href="/contact" className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold rounded-full hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-300 shadow-2xl">

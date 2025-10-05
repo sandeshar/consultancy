@@ -20,7 +20,7 @@ export default function Home() {
           </div>
 
           <p className="mt-8 text-xl md:text-2xl max-w-3xl mx-auto text-blue-100 leading-relaxed opacity-90 hover:opacity-100 transition-opacity duration-1000">
-            At <span className="font-bold text-white">BAB Consultancy</span>, we help students achieve their dreams of studying abroad at top universities worldwide. From university selection to language preparation, we guide you every step of the way.
+            At <span className="font-bold text-white">B&B Consultancy</span>, we help students achieve their dreams of studying abroad at top universities worldwide. From university selection to language preparation, we guide you every step of the way.
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center opacity-80 hover:opacity-100 transition-all duration-1000">
@@ -51,7 +51,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto text-center">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Why Choose <span className="text-gradient bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">BAB Consultancy</span>?
+              Why Choose <span className="text-gradient bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">B&B Consultancy</span>?
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
           </div>
