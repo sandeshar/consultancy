@@ -1,6 +1,17 @@
-import Image from "next/image";
 
 export default function Contact() {
+    const handleForm = async (formData: FormData) => {
+        "use server";
+        const firstName = formData.get("firstName")?.toString() || "";
+        const lastName = formData.get("lastName")?.toString() || "";
+        const email = formData.get("email")?.toString() || "";
+        const country = formData.get("country")?.toString() || "";
+        const studyLevel = formData.get("studyLevel")?.toString() || "";
+        const fieldOfStudy = formData.get("fieldOfStudy")?.toString() || "";
+        const message = formData.get("message")?.toString() || "";
+
+        console.log({ firstName, lastName, email, country, studyLevel, fieldOfStudy, message });
+    };
     return (
         <>
             {/* Hero Section */}
@@ -170,32 +181,32 @@ export default function Contact() {
                                 <h3 className="text-4xl font-bold text-gray-900 mb-3">🎯 Book Free Consultation</h3>
                                 <p className="text-gray-600 mb-8 text-lg">Fill out the form below and our counselors will get back to you within 24 hours.</p>
 
-                                <form className="space-y-6">
+                                <form action={handleForm} className="space-y-6">
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
                                             <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
-                                            <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your first name" required />
+                                            <input name="firstName" type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your first name" required />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
-                                            <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your last name" required />
+                                            <input name="lastName" type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Your last name" required />
                                         </div>
                                     </div>
 
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
-                                        <input type="email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="your.email@example.com" required />
+                                        <input name="email" type="email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="your.email@example.com" required />
                                     </div>
 
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
-                                        <input type="tel" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="+977-9841234567" required />
+                                        <input name="phone" type="tel" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="+977-9841234567" required />
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
                                             <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Country</label>
-                                            <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                            <select name="country" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
                                                 <option>Select Country</option>
                                                 <option>United States</option>
                                                 <option>Canada</option>
@@ -208,7 +219,7 @@ export default function Contact() {
                                         </div>
                                         <div>
                                             <label className="block text-sm font-semibold text-gray-700 mb-2">Study Level</label>
-                                            <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                            <select name="studyLevel" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
                                                 <option>Select Level</option>
                                                 <option>Bachelor's Degree</option>
                                                 <option>Master's Degree</option>
@@ -221,12 +232,12 @@ export default function Contact() {
 
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">Field of Study</label>
-                                        <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="e.g., Computer Science, Business, Engineering" />
+                                        <input name="fieldOfStudy" type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="e.g., Computer Science, Business, Engineering" />
                                     </div>
 
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                                        <textarea rows={4} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Tell us about your educational goals, questions, or any specific requirements..."></textarea>
+                                        <textarea name="message" rows={4} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Tell us about your educational goals, questions, or any specific requirements..."></textarea>
                                     </div>
 
                                     <div className="flex items-center">
