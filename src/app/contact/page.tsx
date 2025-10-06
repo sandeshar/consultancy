@@ -1,17 +1,28 @@
+import Contact from "../db/contact.schema";
+import connectDB from "../db/db";
 
-export default function Contact() {
+export default function ContactPage() {
     const handleForm = async (formData: FormData) => {
         "use server";
-        const firstName = formData.get("firstName")?.toString() || "";
-        const lastName = formData.get("lastName")?.toString() || "";
-        const email = formData.get("email")?.toString() || "";
-        const country = formData.get("country")?.toString() || "";
-        const studyLevel = formData.get("studyLevel")?.toString() || "";
-        const fieldOfStudy = formData.get("fieldOfStudy")?.toString() || "";
-        const message = formData.get("message")?.toString() || "";
+        try {
+            await connectDB();
 
-        console.log({ firstName, lastName, email, country, studyLevel, fieldOfStudy, message });
+            const newContact = await Contact.create({
+                name: `${formData.get("firstName") || ""} ${formData.get("lastName") || ""}`,
+                email: String(formData.get("email") || ""),
+                phone: String(formData.get("phone") || ""),
+                country: String(formData.get("country") || ""),
+                studyLevel: String(formData.get("studyLevel") || ""),
+                fieldOfStudy: String(formData.get("fieldOfStudy") || ""),
+                message: String(formData.get("message") || ""),
+            });
+            console.log("Contact saved:", newContact);
+        } catch (err) {
+            console.error("Failed to save contact:", err);
+            throw err;
+        }
     };
+
     return (
         <>
             {/* Hero Section */}
