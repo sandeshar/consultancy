@@ -55,15 +55,15 @@ const Dashboard = () => {
     return (
         <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar */}
-            <Sidebar 
-                activeTab={activeTab} 
-                setActiveTab={setActiveTab} 
+            <Sidebar
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
                 onLogout={handleLogout}
             />
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col">
-                <AdminHeader 
+                <AdminHeader
                     title={activeTab === 'overview' ? 'Dashboard Overview' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
                     subtitle={activeTab === 'overview' ? 'Welcome back! Here\'s what\'s happening.' : `Manage your ${activeTab} here.`}
                 />
@@ -71,136 +71,135 @@ const Dashboard = () => {
                 {/* Content Area */}
                 <div className="flex-1 p-6">
 
-                {/* Overview Tab Content */}
-                {activeTab === 'overview' && (
-                    <div className="space-y-8">
-                        {/* Stats Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
-                                <div className="p-5">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <div className="h-8 w-8 bg-blue-500 rounded-md flex items-center justify-center">
-                                                <span className="text-white text-sm">👥</span>
+                    {/* Overview Tab Content */}
+                    {activeTab === 'overview' && (
+                        <div className="space-y-8">
+                            {/* Stats Cards */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
+                                    <div className="p-5">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <div className="h-8 w-8 bg-blue-500 rounded-md flex items-center justify-center">
+                                                    <span className="text-white text-sm">👥</span>
+                                                </div>
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Total Clients</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">{stats.totalClients}</dd>
+                                                </dl>
                                             </div>
                                         </div>
-                                        <div className="ml-5 w-0 flex-1">
-                                            <dl>
-                                                <dt className="text-sm font-medium text-gray-500 truncate">Total Clients</dt>
-                                                <dd className="text-lg font-medium text-gray-900">{stats.totalClients}</dd>
-                                            </dl>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
+                                    <div className="p-5">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <div className="h-8 w-8 bg-green-500 rounded-md flex items-center justify-center">
+                                                    <span className="text-white text-sm">💼</span>
+                                                </div>
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">{stats.activeProjects}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
+                                    <div className="p-5">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <div className="h-8 w-8 bg-yellow-500 rounded-md flex items-center justify-center">
+                                                    <span className="text-white text-sm">📧</span>
+                                                </div>
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Pending Inquiries</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">{stats.pendingInquiries}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
+                                    <div className="p-5">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <div className="h-8 w-8 bg-purple-500 rounded-md flex items-center justify-center">
+                                                    <span className="text-white text-sm">💰</span>
+                                                </div>
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Monthly Revenue</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">${stats.monthlyRevenue.toLocaleString()}</dd>
+                                                </dl>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
-                                <div className="p-5">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <div className="h-8 w-8 bg-green-500 rounded-md flex items-center justify-center">
-                                                <span className="text-white text-sm">💼</span>
-                                            </div>
-                                        </div>
-                                        <div className="ml-5 w-0 flex-1">
-                                            <dl>
-                                                <dt className="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
-                                                <dd className="text-lg font-medium text-gray-900">{stats.activeProjects}</dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
-                                <div className="p-5">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <div className="h-8 w-8 bg-yellow-500 rounded-md flex items-center justify-center">
-                                                <span className="text-white text-sm">📧</span>
-                                            </div>
-                                        </div>
-                                        <div className="ml-5 w-0 flex-1">
-                                            <dl>
-                                                <dt className="text-sm font-medium text-gray-500 truncate">Pending Inquiries</dt>
-                                                <dd className="text-lg font-medium text-gray-900">{stats.pendingInquiries}</dd>
-                                            </dl>
+                            {/* Recent Clients and Inquiries */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                {/* Recent Clients */}
+                                <div className="bg-white shadow-lg rounded-lg border border-gray-200">
+                                    <div className="px-4 py-5 sm:p-6">
+                                        <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Clients</h3>
+                                        <div className="space-y-3">
+                                            {recentClients.map((client) => (
+                                                <div key={client.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition-colors">
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-sm font-medium text-gray-900 truncate">{client.name}</p>
+                                                        <p className="text-sm text-gray-500">{client.project}</p>
+                                                    </div>
+                                                    <div className="flex-shrink-0 text-right">
+                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${client.status === 'Active' ? 'bg-green-100 text-green-800' :
+                                                                client.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
+                                                                    'bg-gray-100 text-gray-800'
+                                                            }`}>
+                                                            {client.status}
+                                                        </span>
+                                                        <p className="text-sm font-medium text-gray-900 mt-1">{client.value}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200">
-                                <div className="p-5">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <div className="h-8 w-8 bg-purple-500 rounded-md flex items-center justify-center">
-                                                <span className="text-white text-sm">💰</span>
-                                            </div>
-                                        </div>
-                                        <div className="ml-5 w-0 flex-1">
-                                            <dl>
-                                                <dt className="text-sm font-medium text-gray-500 truncate">Monthly Revenue</dt>
-                                                <dd className="text-lg font-medium text-gray-900">${stats.monthlyRevenue.toLocaleString()}</dd>
-                                            </dl>
+                                {/* Recent Inquiries */}
+                                <div className="bg-white shadow-lg rounded-lg border border-gray-200">
+                                    <div className="px-4 py-5 sm:p-6">
+                                        <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Inquiries</h3>
+                                        <div className="space-y-3">
+                                            {recentInquiries.map((inquiry) => (
+                                                <div key={inquiry.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition-colors">
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-sm font-medium text-gray-900 truncate">{inquiry.name}</p>
+                                                        <p className="text-sm text-gray-500 truncate">{inquiry.email}</p>
+                                                        <p className="text-sm text-gray-600">{inquiry.subject}</p>
+                                                    </div>
+                                                    <div className="flex-shrink-0 text-right">
+                                                        <p className="text-xs text-gray-500">{inquiry.date}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        {/* Recent Clients and Inquiries */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            {/* Recent Clients */}
-                            <div className="bg-white shadow-lg rounded-lg border border-gray-200">
-                                <div className="px-4 py-5 sm:p-6">
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Clients</h3>
-                                    <div className="space-y-3">
-                                        {recentClients.map((client) => (
-                                            <div key={client.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition-colors">
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="text-sm font-medium text-gray-900 truncate">{client.name}</p>
-                                                    <p className="text-sm text-gray-500">{client.project}</p>
-                                                </div>
-                                                <div className="flex-shrink-0 text-right">
-                                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                                        client.status === 'Active' ? 'bg-green-100 text-green-800' :
-                                                        client.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                                                        'bg-gray-100 text-gray-800'
-                                                    }`}>
-                                                        {client.status}
-                                                    </span>
-                                                    <p className="text-sm font-medium text-gray-900 mt-1">{client.value}</p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Recent Inquiries */}
-                            <div className="bg-white shadow-lg rounded-lg border border-gray-200">
-                                <div className="px-4 py-5 sm:p-6">
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Inquiries</h3>
-                                    <div className="space-y-3">
-                                        {recentInquiries.map((inquiry) => (
-                                            <div key={inquiry.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition-colors">
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="text-sm font-medium text-gray-900 truncate">{inquiry.name}</p>
-                                                    <p className="text-sm text-gray-500 truncate">{inquiry.email}</p>
-                                                    <p className="text-sm text-gray-600">{inquiry.subject}</p>
-                                                </div>
-                                                <div className="flex-shrink-0 text-right">
-                                                    <p className="text-xs text-gray-500">{inquiry.date}</p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                    )}
 
                     {/* Other Tab Content Placeholders */}
                     {activeTab !== 'overview' && (

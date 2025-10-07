@@ -37,7 +37,7 @@ const Login = () => {
         try {
             // Simulate API call - replace with actual authentication logic
             await new Promise(resolve => setTimeout(resolve, 1000))
-            
+
             // For demo purposes, accept admin@example.com / password123
             if (formData.email === 'admin@example.com' && formData.password === 'password123') {
                 // Store authentication state (you might want to use proper JWT/session management)
