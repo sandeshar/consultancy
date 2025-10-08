@@ -63,6 +63,24 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
         return contactDate >= weekAgo
     }).length
 
+    // Calculate average response time based on resolved inquiries
+    const calculateResponseRate = () => {
+        const resolvedContacts = contacts.filter(contact => contact.status === 'resolved')
+        if (resolvedContacts.length === 0) return 'N/A'
+        
+        const totalHours = resolvedContacts.reduce((acc, contact) => {
+            const sentDate = new Date(contact.sentAt)
+            const updatedDate = new Date(contact.updatedAt)
+            const diffHours = Math.max(1, Math.floor((updatedDate.getTime() - sentDate.getTime()) / (1000 * 60 * 60)))
+            return acc + diffHours
+        }, 0)
+        
+        const avgHours = Math.round(totalHours / resolvedContacts.length * 10) / 10
+        return avgHours > 24 ? `${Math.round(avgHours / 24)}d` : `${avgHours}h`
+    }
+
+    const responseRate = calculateResponseRate()
+
     return (
         <div className="space-y-8">
             {/* Welcome Section */}
@@ -70,7 +88,7 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
                 <div className="flex items-center justify-between">
                     <div>
                         <h2 className="text-3xl font-bold mb-2">Welcome Back!</h2>
-                        <p className="text-sm text-gray-500">Let&apos;s get your first client!</p>
+                        <p className="text-blue-100">Track your business performance and manage customer inquiries</p>
                     </div>
                     <div className="hidden md:block">
                         <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -162,15 +180,27 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
                     </button>
 
                     <button
-                        onClick={() => onTabChange('projects')}
+                        onClick={() => onTabChange('clients')}
                         className="p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors text-center group"
                     >
                         <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:bg-green-700 transition-colors">
                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                             </svg>
                         </div>
-                        <p className="text-sm font-medium text-gray-900">Manage Projects</p>
+                        <p className="text-sm font-medium text-gray-900">Manage Admins</p>
+                    </button>
+
+                    <button
+                        onClick={() => onTabChange('inquiries')}
+                        className="p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors text-center group"
+                    >
+                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:bg-blue-700 transition-colors">
+                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <p className="text-sm font-medium text-gray-900">View Inquiries</p>
                     </button>
 
                     <button
@@ -281,7 +311,7 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
                                         <p className="text-xs text-gray-500">Avg. response time</p>
                                     </div>
                                 </div>
-                                <span className="text-lg font-bold text-purple-600">2.5h</span>
+                                <span className="text-lg font-bold text-purple-600">{responseRate}</span>
                             </div>
                         </div>
                     </div>

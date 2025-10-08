@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface SettingsProps {
     admin: {
@@ -21,16 +21,34 @@ const SettingsSection = ({ admin }: SettingsProps) => {
         confirmPassword: ''
     })
     const [siteSettings, setSiteSettings] = useState({
-        siteName: 'Consultancy Services',
-        contactEmail: 'info@consultancy.com',
-        phone: '+1 (555) 123-4567',
-        address: '123 Business St, City, Country',
-        timezone: 'UTC-5',
+        siteName: '',
+        contactEmail: '',
+        phone: '',
+        address: '',
+        timezone: 'UTC+5:45',
         maintenanceMode: false
     })
 
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState('')
+
+    // Load settings on component mount
+    useEffect(() => {
+        loadSettings()
+    }, [])
+
+    const loadSettings = async () => {
+        try {
+            const response = await fetch('/api/admin/settings')
+            const data = await response.json()
+            
+            if (data.success) {
+                setSiteSettings(data.settings)
+            }
+        } catch (error) {
+            console.error('Error loading settings:', error)
+        }
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target
@@ -133,13 +151,24 @@ const SettingsSection = ({ admin }: SettingsProps) => {
         setMessage('')
 
         try {
-            // In a real app, this would save to database
-            setTimeout(() => {
+            const response = await fetch('/api/admin/settings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(siteSettings),
+            })
+
+            const data = await response.json()
+            if (data.success) {
                 setMessage('Site settings updated successfully!')
-                setIsLoading(false)
-            }, 1000)
+                setSiteSettings(data.settings)
+            } else {
+                setMessage('Error updating site settings: ' + data.message)
+            }
         } catch (error) {
             setMessage('Error updating site settings')
+        } finally {
             setIsLoading(false)
         }
     }

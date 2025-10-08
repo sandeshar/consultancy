@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Sidebar from '@/components/admin/sidebar'
 import AdminHeader from '@/components/admin/header'
 import SettingsSection from '@/components/admin/settings-section'
 import AdminManagementSection from '@/components/admin/admin-management-section'
 import OverviewSection from '@/components/admin/overview-section'
+import InquiriesSection from '@/components/admin/inquiries-section'
 
 interface Admin {
     id: string
@@ -64,22 +65,34 @@ const Dashboard = () => {
     const [admins, setAdmins] = useState<Admin[]>([])
     const router = useRouter()
 
-    useEffect(() => {
-        checkAuthentication()
+    const fetchContacts = useCallback(async (status = 'all') => {
+        try {
+            const response = await fetch(`/api/admin/contacts?status=${status}&limit=20`)
+            const data = await response.json()
+
+            if (data.success) {
+                setContacts(data.contacts)
+                setContactStats(data.counts)
+            }
+        } catch (error) {
+            console.error('Fetch contacts error:', error)
+        }
     }, [])
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            if (activeTab === 'overview') {
-                fetchContacts()
-            }
-            if (activeTab === 'clients' && admin?.role === 'super_admin') {
-                fetchAdmins()
-            }
-        }
-    }, [activeTab, isAuthenticated, admin])
+    const fetchAdmins = useCallback(async () => {
+        try {
+            const response = await fetch('/api/admin/manage')
+            const data = await response.json()
 
-    const checkAuthentication = async () => {
+            if (data.success) {
+                setAdmins(data.admins)
+            }
+        } catch (error) {
+            console.error('Fetch admins error:', error)
+        }
+    }, [])
+
+    const checkAuthentication = useCallback(async () => {
         try {
             const response = await fetch('/api/admin/auth')
             const data = await response.json()
@@ -96,34 +109,22 @@ const Dashboard = () => {
         } finally {
             setIsLoading(false)
         }
-    }
+    }, [router])
 
-    const fetchContacts = async (status = 'all') => {
-        try {
-            const response = await fetch(`/api/admin/contacts?status=${status}&limit=20`)
-            const data = await response.json()
+    useEffect(() => {
+        checkAuthentication()
+    }, [checkAuthentication])
 
-            if (data.success) {
-                setContacts(data.contacts)
-                setContactStats(data.counts)
+    useEffect(() => {
+        if (isAuthenticated) {
+            if (activeTab === 'overview' || activeTab === 'inquiries') {
+                fetchContacts()
             }
-        } catch (error) {
-            console.error('Fetch contacts error:', error)
-        }
-    }
-
-    const fetchAdmins = async () => {
-        try {
-            const response = await fetch('/api/admin/manage')
-            const data = await response.json()
-
-            if (data.success) {
-                setAdmins(data.admins)
+            if (activeTab === 'clients' && admin?.role === 'super_admin') {
+                fetchAdmins()
             }
-        } catch (error) {
-            console.error('Fetch admins error:', error)
         }
-    }
+    }, [activeTab, isAuthenticated, admin, fetchContacts, fetchAdmins])
 
     const handleLogout = async () => {
         try {
@@ -174,7 +175,10 @@ const Dashboard = () => {
                         />
                     )}
 
-
+                    {/* Inquiries Tab */}
+                    {activeTab === 'inquiries' && (
+                        <InquiriesSection />
+                    )}
 
                     {/* Admin Management Tab */}
                     {activeTab === 'clients' && (
