@@ -5,33 +5,144 @@ import { useRouter } from 'next/navigation'
 import Sidebar from '@/components/admin/sidebar'
 import AdminHeader from '@/components/admin/header'
 
+interface Admin {
+    id: string
+    name: string
+    email: string
+    role: string
+    lastLogin?: Date
+}
+
+interface Contact {
+    _id: string
+    name: string
+    email: string
+    phone: string
+    country?: string
+    studyLevel: string
+    fieldOfStudy?: string
+    message?: string
+    status: 'unseen' | 'processing' | 'resolved'
+    assignedTo?: Admin
+    notes: Array<{
+        content: string
+        addedBy: Admin
+        addedAt: Date
+    }>
+    sentAt: Date
+    updatedAt: Date
+}
+
+interface ContactStats {
+    unseen: number
+    processing: number
+    resolved: number
+    total: number
+}
+
 const Dashboard = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
+    const [admin, setAdmin] = useState<Admin | null>(null)
     const [activeTab, setActiveTab] = useState('overview')
-    const [stats, setStats] = useState({
-        totalClients: 47,
-        activeProjects: 12,
-        pendingInquiries: 8,
-        monthlyRevenue: 45000
+    const [contacts, setContacts] = useState<Contact[]>([])
+    const [contactStats, setContactStats] = useState<ContactStats>({
+        unseen: 0,
+        processing: 0,
+        resolved: 0,
+        total: 0
     })
+    const [admins, setAdmins] = useState<Admin[]>([])
     const router = useRouter()
 
     useEffect(() => {
-        // Check authentication
-        const authStatus = localStorage.getItem('isAdminAuthenticated')
-        if (authStatus === 'true') {
-            setIsAuthenticated(true)
-        } else {
-            router.push('/login')
-        }
-    }, [router])
+        checkAuthentication()
+    }, [])
 
-    const handleLogout = () => {
-        localStorage.removeItem('isAdminAuthenticated')
+    useEffect(() => {
+        if (isAuthenticated) {
+            if (activeTab === 'overview' || activeTab === 'inquiries') {
+                fetchContacts()
+            }
+            if (activeTab === 'clients' && admin?.role === 'super_admin') {
+                fetchAdmins()
+            }
+        }
+    }, [activeTab, isAuthenticated, admin])
+
+    const checkAuthentication = async () => {
+        try {
+            const response = await fetch('/api/admin/auth')
+            const data = await response.json()
+
+            if (data.authenticated) {
+                setIsAuthenticated(true)
+                setAdmin(data.admin)
+            } else {
+                router.push('/login')
+            }
+        } catch (error) {
+            console.error('Auth check error:', error)
+            router.push('/login')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const fetchContacts = async (status = 'all') => {
+        try {
+            const response = await fetch(`/api/admin/contacts?status=${status}&limit=20`)
+            const data = await response.json()
+
+            if (data.success) {
+                setContacts(data.contacts)
+                setContactStats(data.counts)
+            }
+        } catch (error) {
+            console.error('Fetch contacts error:', error)
+        }
+    }
+
+    const fetchAdmins = async () => {
+        try {
+            const response = await fetch('/api/admin/manage')
+            const data = await response.json()
+
+            if (data.success) {
+                setAdmins(data.admins)
+            }
+        } catch (error) {
+            console.error('Fetch admins error:', error)
+        }
+    }
+
+    const handleLogout = async () => {
+        try {
+            await fetch('/api/admin/logout', { method: 'POST' })
+        } catch (error) {
+            console.error('Logout error:', error)
+        }
         router.push('/login')
     }
 
-    if (!isAuthenticated) {
+    const updateContactStatus = async (contactId: string, status: string, note?: string) => {
+        try {
+            const response = await fetch('/api/admin/contacts', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contactId, status, note })
+            })
+
+            const data = await response.json()
+            if (data.success) {
+                fetchContacts() // Refresh the list
+            }
+        } catch (error) {
+            console.error('Update contact error:', error)
+        }
+    }
+
+    if (isLoading || !isAuthenticated) {
         return (
             <div className="min-h-screen bg-gray-100 flex items-center justify-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
@@ -39,18 +150,26 @@ const Dashboard = () => {
         )
     }
 
-    const recentClients = [
-        { id: 1, name: 'TechCorp Inc.', project: 'Website Redesign', status: 'Active', value: '$15,000' },
-        { id: 2, name: 'StartupXYZ', project: 'Mobile App', status: 'In Progress', value: '$25,000' },
-        { id: 3, name: 'Enterprise Ltd.', project: 'Consulting', status: 'Completed', value: '$8,000' },
-        { id: 4, name: 'Local Business', project: 'SEO Optimization', status: 'Active', value: '$5,000' },
-    ]
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case 'unseen': return 'bg-red-100 text-red-800'
+            case 'processing': return 'bg-yellow-100 text-yellow-800'
+            case 'resolved': return 'bg-green-100 text-green-800'
+            default: return 'bg-gray-100 text-gray-800'
+        }
+    }
 
-    const recentInquiries = [
-        { id: 1, name: 'John Smith', email: 'john@example.com', subject: 'Web Development', date: '2 hours ago' },
-        { id: 2, name: 'Sarah Johnson', email: 'sarah@company.com', subject: 'Digital Marketing', date: '5 hours ago' },
-        { id: 3, name: 'Mike Wilson', email: 'mike@startup.io', subject: 'App Development', date: '1 day ago' },
-    ]
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString)
+        const now = new Date()
+        const diff = now.getTime() - date.getTime()
+        const hours = Math.floor(diff / (1000 * 60 * 60))
+
+        if (hours < 1) return 'Just now'
+        if (hours < 24) return `${hours} hours ago`
+        if (hours < 48) return '1 day ago'
+        return date.toLocaleDateString()
+    }
 
     return (
         <div className="flex min-h-screen bg-gray-50">
@@ -81,13 +200,13 @@ const Dashboard = () => {
                                         <div className="flex items-center">
                                             <div className="flex-shrink-0">
                                                 <div className="h-8 w-8 bg-blue-500 rounded-md flex items-center justify-center">
-                                                    <span className="text-white text-sm">👥</span>
+                                                    <span className="text-white text-sm">�</span>
                                                 </div>
                                             </div>
                                             <div className="ml-5 w-0 flex-1">
                                                 <dl>
-                                                    <dt className="text-sm font-medium text-gray-500 truncate">Total Clients</dt>
-                                                    <dd className="text-lg font-medium text-gray-900">{stats.totalClients}</dd>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Total Inquiries</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">{contactStats.total}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -98,14 +217,14 @@ const Dashboard = () => {
                                     <div className="p-5">
                                         <div className="flex items-center">
                                             <div className="flex-shrink-0">
-                                                <div className="h-8 w-8 bg-green-500 rounded-md flex items-center justify-center">
-                                                    <span className="text-white text-sm">💼</span>
+                                                <div className="h-8 w-8 bg-red-500 rounded-md flex items-center justify-center">
+                                                    <span className="text-white text-sm">�️</span>
                                                 </div>
                                             </div>
                                             <div className="ml-5 w-0 flex-1">
                                                 <dl>
-                                                    <dt className="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
-                                                    <dd className="text-lg font-medium text-gray-900">{stats.activeProjects}</dd>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Unseen</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">{contactStats.unseen}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -117,13 +236,13 @@ const Dashboard = () => {
                                         <div className="flex items-center">
                                             <div className="flex-shrink-0">
                                                 <div className="h-8 w-8 bg-yellow-500 rounded-md flex items-center justify-center">
-                                                    <span className="text-white text-sm">📧</span>
+                                                    <span className="text-white text-sm">⚠️</span>
                                                 </div>
                                             </div>
                                             <div className="ml-5 w-0 flex-1">
                                                 <dl>
-                                                    <dt className="text-sm font-medium text-gray-500 truncate">Pending Inquiries</dt>
-                                                    <dd className="text-lg font-medium text-gray-900">{stats.pendingInquiries}</dd>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Processing</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">{contactStats.processing}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -134,83 +253,214 @@ const Dashboard = () => {
                                     <div className="p-5">
                                         <div className="flex items-center">
                                             <div className="flex-shrink-0">
-                                                <div className="h-8 w-8 bg-purple-500 rounded-md flex items-center justify-center">
-                                                    <span className="text-white text-sm">💰</span>
+                                                <div className="h-8 w-8 bg-green-500 rounded-md flex items-center justify-center">
+                                                    <span className="text-white text-sm">✅</span>
                                                 </div>
                                             </div>
                                             <div className="ml-5 w-0 flex-1">
                                                 <dl>
-                                                    <dt className="text-sm font-medium text-gray-500 truncate">Monthly Revenue</dt>
-                                                    <dd className="text-lg font-medium text-gray-900">${stats.monthlyRevenue.toLocaleString()}</dd>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Resolved</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">{contactStats.resolved}</dd>
                                                 </dl>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            {/* Recent Clients and Inquiries */}
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                {/* Recent Clients */}
-                                <div className="bg-white shadow-lg rounded-lg border border-gray-200">
-                                    <div className="px-4 py-5 sm:p-6">
-                                        <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Clients</h3>
-                                        <div className="space-y-3">
-                                            {recentClients.map((client) => (
-                                                <div key={client.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition-colors">
-                                                    <div className="flex-1 min-w-0">
-                                                        <p className="text-sm font-medium text-gray-900 truncate">{client.name}</p>
-                                                        <p className="text-sm text-gray-500">{client.project}</p>
-                                                    </div>
-                                                    <div className="flex-shrink-0 text-right">
-                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${client.status === 'Active' ? 'bg-green-100 text-green-800' :
-                                                                client.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                                                                    'bg-gray-100 text-gray-800'
-                                                            }`}>
-                                                            {client.status}
-                                                        </span>
-                                                        <p className="text-sm font-medium text-gray-900 mt-1">{client.value}</p>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
+                            </div>                            {/* Recent Clients and Inquiries */}
+                            {/* Recent Contacts */}
+                            <div className="bg-white shadow-lg rounded-lg border border-gray-200">
+                                <div className="px-4 py-5 sm:p-6">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h3 className="text-lg leading-6 font-medium text-gray-900">Recent Inquiries</h3>
+                                        <button
+                                            onClick={() => setActiveTab('inquiries')}
+                                            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                                        >
+                                            View All →
+                                        </button>
                                     </div>
-                                </div>
-
-                                {/* Recent Inquiries */}
-                                <div className="bg-white shadow-lg rounded-lg border border-gray-200">
-                                    <div className="px-4 py-5 sm:p-6">
-                                        <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Inquiries</h3>
-                                        <div className="space-y-3">
-                                            {recentInquiries.map((inquiry) => (
-                                                <div key={inquiry.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition-colors">
-                                                    <div className="flex-1 min-w-0">
-                                                        <p className="text-sm font-medium text-gray-900 truncate">{inquiry.name}</p>
-                                                        <p className="text-sm text-gray-500 truncate">{inquiry.email}</p>
-                                                        <p className="text-sm text-gray-600">{inquiry.subject}</p>
-                                                    </div>
-                                                    <div className="flex-shrink-0 text-right">
-                                                        <p className="text-xs text-gray-500">{inquiry.date}</p>
-                                                    </div>
+                                    <div className="space-y-3">
+                                        {contacts.slice(0, 5).map((contact) => (
+                                            <div key={contact._id} className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition-colors">
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-sm font-medium text-gray-900 truncate">{contact.name}</p>
+                                                    <p className="text-sm text-gray-500 truncate">{contact.email}</p>
+                                                    <p className="text-sm text-gray-600">{contact.studyLevel}</p>
                                                 </div>
-                                            ))}
-                                        </div>
+                                                <div className="flex-shrink-0 text-right">
+                                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mb-1 ${getStatusColor(contact.status)}`}>
+                                                        {contact.status}
+                                                    </span>
+                                                    <p className="text-xs text-gray-500">{formatDate(contact.sentAt.toString())}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {contacts.length === 0 && (
+                                            <p className="text-center text-gray-500 py-8">No inquiries yet</p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )}
 
+                    {/* Inquiries Tab */}
+                    {activeTab === 'inquiries' && (
+                        <div className="bg-white shadow-lg rounded-lg border border-gray-200">
+                            <div className="px-4 py-5 sm:p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-lg leading-6 font-medium text-gray-900">Contact Inquiries</h3>
+                                    <div className="flex space-x-2">
+                                        <button
+                                            onClick={() => fetchContacts('unseen')}
+                                            className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-md hover:bg-red-200"
+                                        >
+                                            Unseen ({contactStats.unseen})
+                                        </button>
+                                        <button
+                                            onClick={() => fetchContacts('processing')}
+                                            className="px-3 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md hover:bg-yellow-200"
+                                        >
+                                            Processing ({contactStats.processing})
+                                        </button>
+                                        <button
+                                            onClick={() => fetchContacts('resolved')}
+                                            className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-md hover:bg-green-200"
+                                        >
+                                            Resolved ({contactStats.resolved})
+                                        </button>
+                                        <button
+                                            onClick={() => fetchContacts('all')}
+                                            className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+                                        >
+                                            All ({contactStats.total})
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {contacts.map((contact) => (
+                                        <div key={contact._id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                            <div className="flex items-start justify-between">
+                                                <div className="flex-1">
+                                                    <div className="flex items-center space-x-2 mb-2">
+                                                        <h4 className="text-lg font-medium text-gray-900">{contact.name}</h4>
+                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(contact.status)}`}>
+                                                            {contact.status}
+                                                        </span>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600 mb-3">
+                                                        <p><strong>Email:</strong> {contact.email}</p>
+                                                        <p><strong>Phone:</strong> {contact.phone}</p>
+                                                        <p><strong>Study Level:</strong> {contact.studyLevel}</p>
+                                                        {contact.fieldOfStudy && <p><strong>Field:</strong> {contact.fieldOfStudy}</p>}
+                                                        {contact.country && <p><strong>Country:</strong> {contact.country}</p>}
+                                                        <p><strong>Received:</strong> {formatDate(contact.sentAt.toString())}</p>
+                                                    </div>
+                                                    {contact.message && (
+                                                        <div className="mb-3">
+                                                            <p className="text-sm text-gray-700"><strong>Message:</strong></p>
+                                                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded mt-1">{contact.message}</p>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-col space-y-2 ml-4">
+                                                    <select
+                                                        value={contact.status}
+                                                        onChange={(e) => updateContactStatus(contact._id, e.target.value)}
+                                                        className="text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                                    >
+                                                        <option value="unseen">Unseen</option>
+                                                        <option value="processing">Processing</option>
+                                                        <option value="resolved">Resolved</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            {/* Notes section */}
+                                            {contact.notes.length > 0 && (
+                                                <div className="mt-3 pt-3 border-t border-gray-200">
+                                                    <h5 className="text-sm font-medium text-gray-700 mb-2">Notes:</h5>
+                                                    <div className="space-y-2">
+                                                        {contact.notes.map((note, index) => (
+                                                            <div key={index} className="text-sm">
+                                                                <p className="text-gray-600">{note.content}</p>
+                                                                <p className="text-xs text-gray-400">
+                                                                    by {note.addedBy.name} • {formatDate(note.addedAt.toString())}
+                                                                </p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                    {contacts.length === 0 && (
+                                        <p className="text-center text-gray-500 py-8">No contacts found</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Clients/Admin Management Tab (Super Admin Only) */}
+                    {activeTab === 'clients' && admin?.role === 'super_admin' && (
+                        <div className="bg-white shadow-lg rounded-lg border border-gray-200">
+                            <div className="px-4 py-5 sm:p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-lg leading-6 font-medium text-gray-900">Admin Management</h3>
+                                    <button
+                                        onClick={() => {/* Add admin modal logic */ }}
+                                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        Add Admin
+                                    </button>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {admins.map((adminUser) => (
+                                        <div key={adminUser.id} className="border border-gray-200 rounded-lg p-4">
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <h4 className="text-lg font-medium text-gray-900">{adminUser.name}</h4>
+                                                    <p className="text-sm text-gray-600">{adminUser.email}</p>
+                                                    <div className="flex items-center space-x-2 mt-1">
+                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${adminUser.role === 'super_admin' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+                                                            }`}>
+                                                            {adminUser.role}
+                                                        </span>
+                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${(adminUser as any).isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                                            }`}>
+                                                            {(adminUser as any).isActive ? 'Active' : 'Inactive'}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-sm text-gray-500">
+                                                        Last login: {adminUser.lastLogin ? formatDate(adminUser.lastLogin.toString()) : 'Never'}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Other Tab Content Placeholders */}
-                    {activeTab !== 'overview' && (
+                    {(activeTab === 'projects' || activeTab === 'analytics' || activeTab === 'settings' || (activeTab === 'clients' && admin?.role !== 'super_admin')) && (
                         <div className="bg-white shadow-lg rounded-lg border border-gray-200 p-8">
                             <div className="text-center">
                                 <div className="text-4xl mb-4">🚧</div>
                                 <h3 className="text-lg font-medium text-gray-900 mb-2 capitalize">
-                                    {activeTab} Section
+                                    {activeTab === 'clients' && admin?.role !== 'super_admin' ? 'Access Denied' : `${activeTab} Section`}
                                 </h3>
                                 <p className="text-gray-500">
-                                    This section is under development. You can implement the specific functionality for {activeTab} here.
+                                    {activeTab === 'clients' && admin?.role !== 'super_admin'
+                                        ? 'Only super admins can manage other administrators.'
+                                        : `This section is under development. You can implement the specific functionality for ${activeTab} here.`
+                                    }
                                 </p>
                             </div>
                         </div>

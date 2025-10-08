@@ -35,19 +35,27 @@ const Login = () => {
         }
 
         try {
-            // Simulate API call - replace with actual authentication logic
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            const response = await fetch('/api/admin/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password
+                }),
+            })
 
-            // For demo purposes, accept admin@example.com / password123
-            if (formData.email === 'admin@example.com' && formData.password === 'password123') {
-                // Store authentication state (you might want to use proper JWT/session management)
-                localStorage.setItem('isAdminAuthenticated', 'true')
+            const data = await response.json()
+
+            if (response.ok && data.success) {
+                // Authentication successful
                 router.push('/dashboard')
             } else {
-                setError('Invalid email or password')
+                setError(data.error || 'Login failed')
             }
         } catch (err) {
-            setError('An error occurred. Please try again.')
+            setError('Network error. Please try again.')
         } finally {
             setIsLoading(false)
         }
@@ -144,7 +152,7 @@ const Login = () => {
                         </div>
 
                         <div className="mt-4 text-center text-xs text-gray-500">
-                            Demo credentials: admin@example.com / password123
+                            Default credentials: admin@consultancy.com / admin123
                         </div>
                     </div>
                 </form>
