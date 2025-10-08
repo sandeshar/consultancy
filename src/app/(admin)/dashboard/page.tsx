@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Sidebar from '@/components/admin/sidebar'
 import AdminHeader from '@/components/admin/header'
+import AnalyticsSection from '@/components/admin/analytics-section'
+import SettingsSection from '@/components/admin/settings-section'
+import AdminManagementSection from '@/components/admin/admin-management-section'
+import OverviewSection from '@/components/admin/overview-section'
 
 interface Admin {
     id: string
@@ -61,7 +65,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            if (activeTab === 'overview' || activeTab === 'inquiries') {
+            if (activeTab === 'overview') {
                 fetchContacts()
             }
             if (activeTab === 'clients' && admin?.role === 'super_admin') {
@@ -192,6 +196,15 @@ const Dashboard = () => {
 
                     {/* Overview Tab Content */}
                     {activeTab === 'overview' && (
+                        <OverviewSection 
+                            contacts={contacts}
+                            contactStats={contactStats}
+                            onTabChange={setActiveTab}
+                        />
+                    )}
+
+                    {/* Old Overview - Remove after testing */}
+                    {activeTab === 'overview-old' && (
                         <div className="space-y-8">
                             {/* Stats Cards */}
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -304,166 +317,23 @@ const Dashboard = () => {
                         </div>
                     )}
 
-                    {/* Inquiries Tab */}
-                    {activeTab === 'inquiries' && (
-                        <div className="bg-white shadow-lg rounded-lg border border-gray-200">
-                            <div className="px-4 py-5 sm:p-6">
-                                <div className="flex items-center justify-between mb-6">
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900">Contact Inquiries</h3>
-                                    <div className="flex space-x-2">
-                                        <button
-                                            onClick={() => fetchContacts('unseen')}
-                                            className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-md hover:bg-red-200"
-                                        >
-                                            Unseen ({contactStats.unseen})
-                                        </button>
-                                        <button
-                                            onClick={() => fetchContacts('processing')}
-                                            className="px-3 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md hover:bg-yellow-200"
-                                        >
-                                            Processing ({contactStats.processing})
-                                        </button>
-                                        <button
-                                            onClick={() => fetchContacts('resolved')}
-                                            className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-md hover:bg-green-200"
-                                        >
-                                            Resolved ({contactStats.resolved})
-                                        </button>
-                                        <button
-                                            onClick={() => fetchContacts('all')}
-                                            className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
-                                        >
-                                            All ({contactStats.total})
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4">
-                                    {contacts.map((contact) => (
-                                        <div key={contact._id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                                            <div className="flex items-start justify-between">
-                                                <div className="flex-1">
-                                                    <div className="flex items-center space-x-2 mb-2">
-                                                        <h4 className="text-lg font-medium text-gray-900">{contact.name}</h4>
-                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(contact.status)}`}>
-                                                            {contact.status}
-                                                        </span>
-                                                    </div>
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600 mb-3">
-                                                        <p><strong>Email:</strong> {contact.email}</p>
-                                                        <p><strong>Phone:</strong> {contact.phone}</p>
-                                                        <p><strong>Study Level:</strong> {contact.studyLevel}</p>
-                                                        {contact.fieldOfStudy && <p><strong>Field:</strong> {contact.fieldOfStudy}</p>}
-                                                        {contact.country && <p><strong>Country:</strong> {contact.country}</p>}
-                                                        <p><strong>Received:</strong> {formatDate(contact.sentAt.toString())}</p>
-                                                    </div>
-                                                    {contact.message && (
-                                                        <div className="mb-3">
-                                                            <p className="text-sm text-gray-700"><strong>Message:</strong></p>
-                                                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded mt-1">{contact.message}</p>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                <div className="flex flex-col space-y-2 ml-4">
-                                                    <select
-                                                        value={contact.status}
-                                                        onChange={(e) => updateContactStatus(contact._id, e.target.value)}
-                                                        className="text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                                                    >
-                                                        <option value="unseen">Unseen</option>
-                                                        <option value="processing">Processing</option>
-                                                        <option value="resolved">Resolved</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {/* Notes section */}
-                                            {contact.notes.length > 0 && (
-                                                <div className="mt-3 pt-3 border-t border-gray-200">
-                                                    <h5 className="text-sm font-medium text-gray-700 mb-2">Notes:</h5>
-                                                    <div className="space-y-2">
-                                                        {contact.notes.map((note, index) => (
-                                                            <div key={index} className="text-sm">
-                                                                <p className="text-gray-600">{note.content}</p>
-                                                                <p className="text-xs text-gray-400">
-                                                                    by {note.addedBy.name} • {formatDate(note.addedAt.toString())}
-                                                                </p>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    ))}
-                                    {contacts.length === 0 && (
-                                        <p className="text-center text-gray-500 py-8">No contacts found</p>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
+                    {/* Analytics Tab */}
+                    {activeTab === 'analytics' && (
+                        <AnalyticsSection />
                     )}
 
-                    {/* Clients/Admin Management Tab (Super Admin Only) */}
-                    {activeTab === 'clients' && admin?.role === 'super_admin' && (
-                        <div className="bg-white shadow-lg rounded-lg border border-gray-200">
-                            <div className="px-4 py-5 sm:p-6">
-                                <div className="flex items-center justify-between mb-6">
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900">Admin Management</h3>
-                                    <button
-                                        onClick={() => {/* Add admin modal logic */ }}
-                                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    >
-                                        Add Admin
-                                    </button>
-                                </div>
-
-                                <div className="space-y-4">
-                                    {admins.map((adminUser) => (
-                                        <div key={adminUser.id} className="border border-gray-200 rounded-lg p-4">
-                                            <div className="flex items-center justify-between">
-                                                <div>
-                                                    <h4 className="text-lg font-medium text-gray-900">{adminUser.name}</h4>
-                                                    <p className="text-sm text-gray-600">{adminUser.email}</p>
-                                                    <div className="flex items-center space-x-2 mt-1">
-                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${adminUser.role === 'super_admin' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
-                                                            }`}>
-                                                            {adminUser.role}
-                                                        </span>
-                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${(adminUser as any).isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                                                            }`}>
-                                                            {(adminUser as any).isActive ? 'Active' : 'Inactive'}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <p className="text-sm text-gray-500">
-                                                        Last login: {adminUser.lastLogin ? formatDate(adminUser.lastLogin.toString()) : 'Never'}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                    {/* Admin Management Tab */}
+                    {activeTab === 'clients' && (
+                        <AdminManagementSection 
+                            admins={admins}
+                            currentAdmin={admin}
+                            onRefresh={fetchAdmins}
+                        />
                     )}
 
-                    {/* Other Tab Content Placeholders */}
-                    {(activeTab === 'projects' || activeTab === 'analytics' || activeTab === 'settings' || (activeTab === 'clients' && admin?.role !== 'super_admin')) && (
-                        <div className="bg-white shadow-lg rounded-lg border border-gray-200 p-8">
-                            <div className="text-center">
-                                <div className="text-4xl mb-4">🚧</div>
-                                <h3 className="text-lg font-medium text-gray-900 mb-2 capitalize">
-                                    {activeTab === 'clients' && admin?.role !== 'super_admin' ? 'Access Denied' : `${activeTab} Section`}
-                                </h3>
-                                <p className="text-gray-500">
-                                    {activeTab === 'clients' && admin?.role !== 'super_admin'
-                                        ? 'Only super admins can manage other administrators.'
-                                        : `This section is under development. You can implement the specific functionality for ${activeTab} here.`
-                                    }
-                                </p>
-                            </div>
-                        </div>
+                    {/* Settings Tab */}
+                    {activeTab === 'settings' && (
+                        <SettingsSection admin={admin} />
                     )}
                 </div>
             </div>
