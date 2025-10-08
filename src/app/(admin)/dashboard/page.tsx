@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Sidebar from '@/components/admin/sidebar'
 import AdminHeader from '@/components/admin/header'
-import AnalyticsSection from '@/components/admin/analytics-section'
 import SettingsSection from '@/components/admin/settings-section'
 import AdminManagementSection from '@/components/admin/admin-management-section'
 import OverviewSection from '@/components/admin/overview-section'
@@ -176,11 +175,6 @@ const Dashboard = () => {
                     )}
 
 
-
-                    {/* Analytics Tab */}
-                    {activeTab === 'analytics' && (
-                        <AnalyticsSection />
-                    )}
 
                     {/* Admin Management Tab */}
                     {activeTab === 'clients' && (

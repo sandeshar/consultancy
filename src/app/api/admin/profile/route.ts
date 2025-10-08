@@ -38,22 +38,22 @@ export async function PUT(request: NextRequest) {
         const { name, email } = await request.json();
 
         if (!name || !email) {
-            return NextResponse.json({ 
-                success: false, 
-                message: 'Name and email are required' 
+            return NextResponse.json({
+                success: false,
+                message: 'Name and email are required'
             }, { status: 400 });
         }
 
         // Check if email already exists for another admin
-        const existingAdmin = await Admin.findOne({ 
-            email, 
-            _id: { $ne: auth.admin._id } 
+        const existingAdmin = await Admin.findOne({
+            email,
+            _id: { $ne: auth.admin._id }
         });
 
         if (existingAdmin) {
-            return NextResponse.json({ 
-                success: false, 
-                message: 'Email already exists' 
+            return NextResponse.json({
+                success: false,
+                message: 'Email already exists'
             }, { status: 400 });
         }
 
@@ -77,9 +77,9 @@ export async function PUT(request: NextRequest) {
 
     } catch (error) {
         console.error('Profile update error:', error);
-        return NextResponse.json({ 
-            success: false, 
-            message: 'Internal server error' 
+        return NextResponse.json({
+            success: false,
+            message: 'Internal server error'
         }, { status: 500 });
     }
 }

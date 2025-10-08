@@ -38,25 +38,25 @@ export async function PUT(request: NextRequest) {
         const { currentPassword, newPassword } = await request.json();
 
         if (!currentPassword || !newPassword) {
-            return NextResponse.json({ 
-                success: false, 
-                message: 'Current password and new password are required' 
+            return NextResponse.json({
+                success: false,
+                message: 'Current password and new password are required'
             }, { status: 400 });
         }
 
         if (newPassword.length < 6) {
-            return NextResponse.json({ 
-                success: false, 
-                message: 'New password must be at least 6 characters long' 
+            return NextResponse.json({
+                success: false,
+                message: 'New password must be at least 6 characters long'
             }, { status: 400 });
         }
 
         // Verify current password
         const isCurrentPasswordValid = await auth.admin.comparePassword(currentPassword);
         if (!isCurrentPasswordValid) {
-            return NextResponse.json({ 
-                success: false, 
-                message: 'Current password is incorrect' 
+            return NextResponse.json({
+                success: false,
+                message: 'Current password is incorrect'
             }, { status: 400 });
         }
 
@@ -71,9 +71,9 @@ export async function PUT(request: NextRequest) {
 
     } catch (error) {
         console.error('Password change error:', error);
-        return NextResponse.json({ 
-            success: false, 
-            message: 'Internal server error' 
+        return NextResponse.json({
+            success: false,
+            message: 'Internal server error'
         }, { status: 500 });
     }
 }

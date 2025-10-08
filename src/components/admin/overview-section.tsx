@@ -70,7 +70,7 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
                 <div className="flex items-center justify-between">
                     <div>
                         <h2 className="text-3xl font-bold mb-2">Welcome Back!</h2>
-                                                                                        <p className="text-sm text-gray-500">Let&apos;s get your first client!</p>
+                        <p className="text-sm text-gray-500">Let&apos;s get your first client!</p>
                     </div>
                     <div className="hidden md:block">
                         <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -171,18 +171,6 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
                             </svg>
                         </div>
                         <p className="text-sm font-medium text-gray-900">Manage Projects</p>
-                    </button>
-
-                    <button
-                        onClick={() => onTabChange('analytics')}
-                        className="p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors text-center group"
-                    >
-                        <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:bg-purple-700 transition-colors">
-                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                        </div>
-                        <p className="text-sm font-medium text-gray-900">View Analytics</p>
                     </button>
 
                     <button

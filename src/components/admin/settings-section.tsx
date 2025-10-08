@@ -82,7 +82,7 @@ const SettingsSection = ({ admin }: SettingsProps) => {
 
     const handlePasswordChange = async (e: React.FormEvent) => {
         e.preventDefault()
-        
+
         if (formData.newPassword !== formData.confirmPassword) {
             setMessage('New passwords do not match')
             return
@@ -167,11 +167,10 @@ const SettingsSection = ({ admin }: SettingsProps) => {
                             <button
                                 key={section.id}
                                 onClick={() => setActiveSection(section.id)}
-                                className={`flex items-center space-x-2 py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
-                                    activeSection === section.id
+                                className={`flex items-center space-x-2 py-4 px-2 border-b-2 font-medium text-sm transition-colors ${activeSection === section.id
                                         ? 'border-indigo-500 text-indigo-600'
                                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                }`}
+                                    }`}
                             >
                                 <span>{section.icon}</span>
                                 <span>{section.label}</span>
