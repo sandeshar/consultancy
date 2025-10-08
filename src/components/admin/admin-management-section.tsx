@@ -51,7 +51,7 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
             })
 
             const data = await response.json()
-            
+
             if (data.success) {
                 setShowAddModal(false)
                 setNewAdmin({ name: '', email: '', password: '', role: 'admin' })
@@ -202,13 +202,12 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
                                         <button
                                             onClick={() => handleToggleActive(admin.id, admin.isActive)}
                                             disabled={admin.id === currentAdmin?.id}
-                                            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                                                admin.id === currentAdmin?.id
+                                            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${admin.id === currentAdmin?.id
                                                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                                     : admin.isActive
-                                                    ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                                                    : 'bg-green-100 text-green-700 hover:bg-green-200'
-                                            }`}
+                                                        ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                                                        : 'bg-green-100 text-green-700 hover:bg-green-200'
+                                                }`}
                                         >
                                             {admin.isActive ? 'Deactivate' : 'Activate'}
                                         </button>

@@ -13,7 +13,7 @@ async function verifyAdminToken(request: NextRequest) {
             return { error: 'No token provided', status: 401 };
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as { adminId: string };
         const admin = await Admin.findById(decoded.adminId);
 
         if (!admin || !admin.isActive) {
@@ -41,9 +41,10 @@ export async function GET(request: NextRequest) {
         const page = parseInt(searchParams.get('page') || '1');
         const limit = parseInt(searchParams.get('limit') || '10');
         const search = searchParams.get('search') || '';
+        const statsOnly = searchParams.get('stats') === 'true';
 
         // Build filter
-        const filter: any = {};
+        const filter: Record<string, any> = {};
         if (status !== 'all') {
             filter.status = status;
         }
@@ -87,6 +88,14 @@ export async function GET(request: NextRequest) {
             counts[item._id as keyof typeof counts] = item.count;
             counts.total += item.count;
         });
+
+        // If only stats are requested, return just the counts
+        if (statsOnly) {
+            return NextResponse.json({
+                success: true,
+                stats: counts
+            });
+        }
 
         return NextResponse.json({
             success: true,

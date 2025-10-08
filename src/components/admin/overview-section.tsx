@@ -33,7 +33,7 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
         const now = new Date()
         const diff = now.getTime() - date.getTime()
         const hours = Math.floor(diff / (1000 * 60 * 60))
-        
+
         if (hours < 1) return 'Just now'
         if (hours < 24) return `${hours} hours ago`
         if (hours < 48) return '1 day ago'
@@ -70,7 +70,7 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
                 <div className="flex items-center justify-between">
                     <div>
                         <h2 className="text-3xl font-bold mb-2">Welcome Back!</h2>
-                        <p className="text-blue-100">Here's what's happening with your consultancy today.</p>
+                                                                                        <p className="text-sm text-gray-500">Let&apos;s get your first client!</p>
                     </div>
                     <div className="hidden md:block">
                         <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
