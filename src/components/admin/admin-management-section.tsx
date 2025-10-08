@@ -93,7 +93,7 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
     const handleEditAdmin = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!editingAdmin) return
-        
+
         setIsLoading(true)
         setError('')
 
@@ -315,21 +315,21 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
                                             onClick={() => handleToggleActive(admin.id, admin.isActive)}
                                             disabled={admin.id === currentAdmin?.id}
                                             className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${admin.id === currentAdmin?.id
-                                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                                    : admin.isActive
-                                                        ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                                                        : 'bg-green-100 text-green-700 hover:bg-green-200'
+                                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                                : admin.isActive
+                                                    ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                                                    : 'bg-green-100 text-green-700 hover:bg-green-200'
                                                 }`}
                                         >
                                             {admin.isActive ? 'Deactivate' : 'Activate'}
                                         </button>
-                                        <button 
+                                        <button
                                             onClick={() => openEditModal(admin)}
                                             className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors text-sm font-medium"
                                         >
                                             Edit
                                         </button>
-                                        <button 
+                                        <button
                                             onClick={() => openPasswordModal(admin)}
                                             className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-md hover:bg-yellow-200 transition-colors text-sm font-medium"
                                         >

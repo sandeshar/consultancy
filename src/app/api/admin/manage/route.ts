@@ -182,7 +182,7 @@ export async function PUT(request: NextRequest) {
 
         // Check if email is being updated and if it already exists
         if (email && email.toLowerCase() !== adminToUpdate.email) {
-            const existingAdmin = await Admin.findOne({ 
+            const existingAdmin = await Admin.findOne({
                 email: email.toLowerCase(),
                 _id: { $ne: adminId }
             });
@@ -221,8 +221,8 @@ export async function PUT(request: NextRequest) {
 
         await adminToUpdate.save();
 
-        const message = newPassword !== undefined ? 
-            'Admin password changed successfully' : 
+        const message = newPassword !== undefined ?
+            'Admin password changed successfully' :
             'Admin updated successfully';
 
         return NextResponse.json({

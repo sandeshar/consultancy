@@ -242,8 +242,8 @@ const InquiriesSection = () => {
                                 key={filter}
                                 onClick={() => handleFilterChange(filter)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${currentFilter === filter
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                             >
                                 {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -356,7 +356,7 @@ const InquiriesSection = () => {
                                 >
                                     Previous
                                 </button>
-                                
+
                                 <div className="flex items-center space-x-1">
                                     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                                         let pageNum;
@@ -369,16 +369,15 @@ const InquiriesSection = () => {
                                         } else {
                                             pageNum = currentPage - 2 + i;
                                         }
-                                        
+
                                         return (
                                             <button
                                                 key={pageNum}
                                                 onClick={() => setCurrentPage(pageNum)}
-                                                className={`px-3 py-2 text-sm font-medium rounded-md ${
-                                                    currentPage === pageNum
+                                                className={`px-3 py-2 text-sm font-medium rounded-md ${currentPage === pageNum
                                                         ? 'bg-blue-600 text-white'
                                                         : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
-                                                }`}
+                                                    }`}
                                             >
                                                 {pageNum}
                                             </button>
