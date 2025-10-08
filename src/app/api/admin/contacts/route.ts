@@ -77,6 +77,8 @@ export async function GET(request: NextRequest) {
             }
         ]);
 
+
+
         const counts = {
             unseen: 0,
             processing: 0,
@@ -85,9 +87,20 @@ export async function GET(request: NextRequest) {
         };
 
         statusCounts.forEach(item => {
-            counts[item._id as keyof typeof counts] = item.count;
-            counts.total += item.count;
+            if (item._id === null || item._id === undefined || item._id === '') {
+                // Treat null/undefined/empty status as 'unseen'
+                counts.unseen += item.count;
+                counts.total += item.count;
+            } else if (item._id && typeof item._id === 'string') {
+                const status = item._id as keyof typeof counts;
+                if (status !== 'total' && counts.hasOwnProperty(status)) {
+                    counts[status] = item.count;
+                    counts.total += item.count;
+                }
+            }
         });
+
+
 
         // If only stats are requested, return just the counts
         if (statsOnly) {

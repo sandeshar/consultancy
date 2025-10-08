@@ -67,14 +67,14 @@ const OverviewSection = ({ contacts, contactStats, onTabChange }: OverviewProps)
     const calculateResponseRate = () => {
         const resolvedContacts = contacts.filter(contact => contact.status === 'resolved')
         if (resolvedContacts.length === 0) return 'N/A'
-        
+
         const totalHours = resolvedContacts.reduce((acc, contact) => {
             const sentDate = new Date(contact.sentAt)
             const updatedDate = new Date(contact.updatedAt)
             const diffHours = Math.max(1, Math.floor((updatedDate.getTime() - sentDate.getTime()) / (1000 * 60 * 60)))
             return acc + diffHours
         }, 0)
-        
+
         const avgHours = Math.round(totalHours / resolvedContacts.length * 10) / 10
         return avgHours > 24 ? `${Math.round(avgHours / 24)}d` : `${avgHours}h`
     }

@@ -15,6 +15,7 @@ export default function ContactPage() {
                 studyLevel: String(formData.get("studyLevel") || ""),
                 fieldOfStudy: String(formData.get("fieldOfStudy") || ""),
                 message: String(formData.get("message") || ""),
+                status: 'unseen'
             });
             console.log("Contact saved:", newContact);
         } catch (err) {

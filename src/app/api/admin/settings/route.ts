@@ -12,7 +12,7 @@ async function verifyAdminToken(request: NextRequest) {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as { adminId: string };
-        
+
         return { decoded };
     } catch (error) {
         return { error: 'Invalid token', status: 401 };
@@ -47,9 +47,9 @@ export async function GET(request: NextRequest) {
 
     } catch (error) {
         console.error('Get settings error:', error);
-        return NextResponse.json({ 
-            success: false, 
-            message: 'Internal server error' 
+        return NextResponse.json({
+            success: false,
+            message: 'Internal server error'
         }, { status: 500 });
     }
 }
@@ -67,9 +67,9 @@ export async function PUT(request: NextRequest) {
         const { siteName, contactEmail, phone, address, timezone, maintenanceMode } = await request.json();
 
         if (!siteName || !contactEmail) {
-            return NextResponse.json({ 
-                success: false, 
-                message: 'Site name and contact email are required' 
+            return NextResponse.json({
+                success: false,
+                message: 'Site name and contact email are required'
             }, { status: 400 });
         }
 
@@ -91,9 +91,9 @@ export async function PUT(request: NextRequest) {
 
     } catch (error) {
         console.error('Update settings error:', error);
-        return NextResponse.json({ 
-            success: false, 
-            message: 'Internal server error' 
+        return NextResponse.json({
+            success: false,
+            message: 'Internal server error'
         }, { status: 500 });
     }
 }

@@ -163,7 +163,7 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        const { adminId, name, isActive, role } = await request.json();
+        const { adminId, name, email, isActive, role, newPassword } = await request.json();
 
         if (!adminId) {
             return NextResponse.json(
@@ -180,6 +180,20 @@ export async function PUT(request: NextRequest) {
             );
         }
 
+        // Check if email is being updated and if it already exists
+        if (email && email.toLowerCase() !== adminToUpdate.email) {
+            const existingAdmin = await Admin.findOne({ 
+                email: email.toLowerCase(),
+                _id: { $ne: adminId }
+            });
+            if (existingAdmin) {
+                return NextResponse.json(
+                    { error: 'Admin with this email already exists' },
+                    { status: 409 }
+                );
+            }
+        }
+
         // Prevent super_admin from deactivating themselves
         if (adminToUpdate._id.toString() === currentAdmin._id.toString() && isActive === false) {
             return NextResponse.json(
@@ -188,16 +202,32 @@ export async function PUT(request: NextRequest) {
             );
         }
 
+        // Validate password if provided
+        if (newPassword !== undefined) {
+            if (typeof newPassword !== 'string' || newPassword.length < 6) {
+                return NextResponse.json(
+                    { error: 'Password must be at least 6 characters long' },
+                    { status: 400 }
+                );
+            }
+        }
+
         // Update fields
         if (name !== undefined) adminToUpdate.name = name;
+        if (email !== undefined) adminToUpdate.email = email.toLowerCase();
         if (isActive !== undefined) adminToUpdate.isActive = isActive;
         if (role !== undefined) adminToUpdate.role = role;
+        if (newPassword !== undefined) adminToUpdate.password = newPassword;
 
         await adminToUpdate.save();
 
+        const message = newPassword !== undefined ? 
+            'Admin password changed successfully' : 
+            'Admin updated successfully';
+
         return NextResponse.json({
             success: true,
-            message: 'Admin updated successfully',
+            message,
             admin: adminToUpdate
         });
 

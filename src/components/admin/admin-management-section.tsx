@@ -29,11 +29,24 @@ interface AdminManagementProps {
 
 const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManagementProps) => {
     const [showAddModal, setShowAddModal] = useState(false)
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [showPasswordModal, setShowPasswordModal] = useState(false)
+    const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null)
+    const [passwordAdmin, setPasswordAdmin] = useState<Admin | null>(null)
     const [newAdmin, setNewAdmin] = useState({
         name: '',
         email: '',
         password: '',
         role: 'admin'
+    })
+    const [editAdmin, setEditAdmin] = useState({
+        name: '',
+        email: '',
+        role: 'admin'
+    })
+    const [passwordData, setPasswordData] = useState({
+        newPassword: '',
+        confirmPassword: ''
     })
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
@@ -66,6 +79,52 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
         }
     }
 
+    const openEditModal = (admin: Admin) => {
+        setEditingAdmin(admin)
+        setEditAdmin({
+            name: admin.name,
+            email: admin.email,
+            role: admin.role
+        })
+        setShowEditModal(true)
+        setError('')
+    }
+
+    const handleEditAdmin = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!editingAdmin) return
+        
+        setIsLoading(true)
+        setError('')
+
+        try {
+            const response = await fetch('/api/admin/manage', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    adminId: editingAdmin.id,
+                    name: editAdmin.name,
+                    email: editAdmin.email,
+                    role: editAdmin.role
+                })
+            })
+
+            const data = await response.json()
+
+            if (data.success) {
+                setShowEditModal(false)
+                setEditingAdmin(null)
+                onRefresh()
+            } else {
+                setError(data.error)
+            }
+        } catch (err) {
+            setError('Failed to update admin')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     const handleToggleActive = async (adminId: string, isActive: boolean) => {
         try {
             const response = await fetch('/api/admin/manage', {
@@ -81,6 +140,59 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
             console.error('Failed to update admin status')
         }
     }
+
+    const openPasswordModal = (admin: Admin) => {
+        setPasswordAdmin(admin)
+        setPasswordData({ newPassword: '', confirmPassword: '' })
+        setShowPasswordModal(true)
+        setError('')
+    }
+
+    const handleChangePassword = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!passwordAdmin) return
+
+        if (passwordData.newPassword !== passwordData.confirmPassword) {
+            setError('Passwords do not match')
+            return
+        }
+
+        if (passwordData.newPassword.length < 6) {
+            setError('Password must be at least 6 characters long')
+            return
+        }
+
+        setIsLoading(true)
+        setError('')
+
+        try {
+            const response = await fetch('/api/admin/manage', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    adminId: passwordAdmin.id,
+                    newPassword: passwordData.newPassword
+                })
+            })
+
+            const data = await response.json()
+
+            if (data.success) {
+                setShowPasswordModal(false)
+                setPasswordAdmin(null)
+                setPasswordData({ newPassword: '', confirmPassword: '' })
+                // You might want to show a success message here
+            } else {
+                setError(data.error)
+            }
+        } catch (err) {
+            setError('Failed to change password')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
@@ -211,8 +323,17 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
                                         >
                                             {admin.isActive ? 'Deactivate' : 'Activate'}
                                         </button>
-                                        <button className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors text-sm font-medium">
+                                        <button 
+                                            onClick={() => openEditModal(admin)}
+                                            className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors text-sm font-medium"
+                                        >
                                             Edit
+                                        </button>
+                                        <button 
+                                            onClick={() => openPasswordModal(admin)}
+                                            className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-md hover:bg-yellow-200 transition-colors text-sm font-medium"
+                                        >
+                                            Change Password
                                         </button>
                                     </div>
                                     <div className="mt-2 text-xs text-gray-500">
@@ -305,6 +426,152 @@ const AdminManagementSection = ({ admins, currentAdmin, onRefresh }: AdminManage
                                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
                                 >
                                     {isLoading ? 'Creating...' : 'Create Admin'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Admin Modal */}
+            {showEditModal && editingAdmin && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                        <div className="px-6 py-4 border-b border-gray-200">
+                            <h3 className="text-lg font-medium text-gray-900">Edit Administrator</h3>
+                        </div>
+
+                        <form onSubmit={handleEditAdmin} className="p-6 space-y-4">
+                            {error && (
+                                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
+                                    {error}
+                                </div>
+                            )}
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                <input
+                                    type="text"
+                                    value={editAdmin.name}
+                                    onChange={(e) => setEditAdmin(prev => ({ ...prev, name: e.target.value }))}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input
+                                    type="email"
+                                    value={editAdmin.email}
+                                    onChange={(e) => setEditAdmin(prev => ({ ...prev, email: e.target.value }))}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                                <select
+                                    value={editAdmin.role}
+                                    onChange={(e) => setEditAdmin(prev => ({ ...prev, role: e.target.value }))}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    disabled={editingAdmin.id === currentAdmin?.id}
+                                >
+                                    <option value="admin">Admin</option>
+                                    <option value="super_admin">Super Admin</option>
+                                </select>
+                                {editingAdmin.id === currentAdmin?.id && (
+                                    <p className="text-xs text-gray-500 mt-1">You cannot change your own role</p>
+                                )}
+                            </div>
+
+                            <div className="flex justify-end space-x-3 pt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowEditModal(false)
+                                        setEditingAdmin(null)
+                                        setError('')
+                                    }}
+                                    className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                                >
+                                    {isLoading ? 'Updating...' : 'Update Admin'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Change Password Modal */}
+            {showPasswordModal && passwordAdmin && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                        <div className="px-6 py-4 border-b border-gray-200">
+                            <h3 className="text-lg font-medium text-gray-900">
+                                Change Password for {passwordAdmin.name}
+                            </h3>
+                        </div>
+
+                        <form onSubmit={handleChangePassword} className="p-6 space-y-4">
+                            {error && (
+                                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
+                                    {error}
+                                </div>
+                            )}
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                                <input
+                                    type="password"
+                                    value={passwordData.newPassword}
+                                    onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    minLength={6}
+                                    required
+                                />
+                                <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                                <input
+                                    type="password"
+                                    value={passwordData.confirmPassword}
+                                    onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    minLength={6}
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex justify-end space-x-3 pt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowPasswordModal(false)
+                                        setPasswordAdmin(null)
+                                        setPasswordData({ newPassword: '', confirmPassword: '' })
+                                        setError('')
+                                    }}
+                                    className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                                >
+                                    {isLoading ? 'Changing...' : 'Change Password'}
                                 </button>
                             </div>
                         </form>
