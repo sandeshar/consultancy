@@ -5,7 +5,7 @@ export default function Services() {
         <>
             {/* Hero Section */}
             <section className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-4 py-32 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
-                <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+                <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
 
                 <div className="relative z-10 max-w-5xl mx-auto space-y-8">

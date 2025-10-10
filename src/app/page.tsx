@@ -4,13 +4,23 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-screen px-4 py-20 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
+      <section className="relative flex flex-col items-center justify-center min-h-screen px-4 py-20 bg-gradient-to-br from-slate-600 via-blue-600 to-slate-600">
         {/* Subtle Background */}
-        <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+        <div className="absolute inset-0 bg-[url('/ausjpn.png')] bg-no-repeat bg-center bg-cover opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
 
         {/* Content */}
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-12">
+          <div className="-mb-0">
+            <Image
+              src="/babl.png"
+              alt="B&B Education Consultancy"
+              width={200}
+              height={200}
+              className="mx-auto"
+            />
+            <h1 className="text-4xl md:text-6xl font-bold text-white">B&B Education Consultancy</h1>
+          </div>
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tight">
               Your Gateway to{" "}
@@ -64,10 +74,10 @@ export default function Home() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
-      </section>
+      </section >
 
       {/* Features Section */}
-      <section className="py-32 px-4 bg-white">
+      < section className="py-32 px-4 bg-white" >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
@@ -120,10 +130,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Services Section */}
-      <section className="py-32 px-4 bg-gradient-to-b from-slate-50 to-white">
+      < section className="py-32 px-4 bg-gradient-to-b from-slate-50 to-white" >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
@@ -167,15 +177,6 @@ export default function Home() {
                 title: "Visa & Language",
                 description: "Complete visa guidance and IELTS/TOEFL preparation with expert instructors",
                 color: "from-emerald-500 to-emerald-600"
-              },
-              {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                ),
-                title: "Pre-Departure Support",
-                description: "Orientation sessions, accommodation assistance, and cultural preparation for your study abroad journey"
               }
             ].map((service, index) => (
               <div key={index} className="group relative p-8 bg-white rounded-3xl border border-slate-100 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 hover:-translate-y-1">
@@ -191,11 +192,11 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* CTA Section */}
-      <section className="py-32 px-4 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-5" />
+      < section className="py-32 px-4 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden" >
+        <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-10" />
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <h2 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
             Ready to Transform
@@ -240,7 +241,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
     </>
   );
 }
