@@ -11,7 +11,7 @@ export default function SuccessNotification() {
     useEffect(() => {
         if (searchParams.get('success') === 'true') {
             setShow(true)
-            
+
             // Auto hide after 5 seconds
             const timer = setTimeout(() => {
                 setShow(false)
@@ -37,7 +37,7 @@ export default function SuccessNotification() {
                     <h4 className="font-bold">Message Sent Successfully!</h4>
                     <p className="text-sm">We'll get back to you within 24 hours.</p>
                 </div>
-                <button 
+                <button
                     onClick={() => {
                         setShow(false)
                         router.replace('/contact', { scroll: false })
