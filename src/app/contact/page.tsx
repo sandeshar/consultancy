@@ -1,5 +1,7 @@
 import Contact from "../db/contact.schema";
 import connectDB from "../db/db";
+import { redirect } from "next/navigation";
+import SuccessNotification from "@/components/success-notification";
 
 export default function ContactPage() {
     const handleForm = async (formData: FormData) => {
@@ -22,10 +24,12 @@ export default function ContactPage() {
             console.error("Failed to save contact:", err);
             throw err;
         }
+        redirect('/contact?success=true');
     };
 
     return (
         <>
+            <SuccessNotification />
             {/* Hero Section */}
             <section className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-4 py-32 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
                 <div className="absolute inset-0 bg-[url('/map.svg')] bg-no-repeat bg-center bg-cover opacity-10" />
