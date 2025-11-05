@@ -15,8 +15,8 @@ const Footer = () => {
                             </p>
                             <div className="space-y-2 text-gray-300">
                                 <p>📧 info@bbconsultancy.com</p>
-                                <p>📞 +977-1-4567890</p>
-                                <p>📍 Kathmandu, Nepal</p>
+                                <p>📞 078-595444, 9765638444</p>
+                                <p>📍 Putalisadak, Kathmandu, Nepal</p>
                             </div>
                         </div>
 

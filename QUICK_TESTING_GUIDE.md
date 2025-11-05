@@ -78,7 +78,7 @@ npm run dev
    - First Name: Test
    - Last Name: User
    - Email: test@example.com
-   - Phone: +977-9841234567
+   - Phone: 078-595444
    - Country: United States
    - Study Level: Bachelor's Degree
    - Field of Study: Computer Science

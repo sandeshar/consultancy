@@ -235,7 +235,7 @@ This project is licensed under the MIT License.
 B&B Education Consultancy
 - Website: [www.bbconsultancy.com](https://www.bbconsultancy.com)
 - Email: info@bbconsultancy.com
-- Phone: +977-1-4444444
+- Phone: 078-595444, 9765638444, 9857087290
 - Address: Putalisadak, Kathmandu, Nepal
 
 ## 🙏 Acknowledgments
