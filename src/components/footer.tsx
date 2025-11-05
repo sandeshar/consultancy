@@ -14,9 +14,9 @@ const Footer = () => {
                                 Your trusted partner for international education. We help students achieve their dreams of studying abroad at top universities worldwide.
                             </p>
                             <div className="space-y-2 text-gray-300">
-                                <p>📧 info@bbconsultancy.com</p>
-                                <p>📞 078-595444, 9765638444</p>
-                                <p>📍 Putalisadak, Kathmandu, Nepal</p>
+                                <p>📧 bandbeducation2025@gmail.com</p>
+                                <p>📞 078-595444, 9765638444, 9857087230</p>
+                                <p>📍 Devchuli-13, Daldale, Nawalparasi, Nepal</p>
                             </div>
                         </div>
 

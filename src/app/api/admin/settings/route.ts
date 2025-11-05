@@ -21,10 +21,10 @@ async function verifyAdminToken(request: NextRequest) {
 
 // Default site settings
 const defaultSettings = {
-    siteName: 'Consultancy Services',
-    contactEmail: 'contact@consultancy.com',
-    phone: '+977-9876543210',
-    address: 'Kathmandu, Nepal',
+    siteName: 'B&B Education Consultancy',
+    contactEmail: 'bandbeducation2025@gmail.com',
+    phone: '078-595444, 9765638444, 9857087230, 9867903342',
+    address: 'Devchuli-13, Daldale, Nawalparasi, Nepal',
     timezone: 'UTC+5:45',
     maintenanceMode: false
 };

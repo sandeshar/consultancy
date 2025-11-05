@@ -71,8 +71,8 @@ export default function ContactPage() {
                                     <div>
                                         <h3 className="text-xl font-semibold text-gray-900 mb-2">Visit Our Office</h3>
                                         <p className="text-gray-600">
-                                            Putalisadak, Kathmandu, Nepal<br />
-                                            Near Putali Sadak Chowk<br />
+                                            Devchuli-13, Daldale<br />
+                                            Nawalparasi, Nepal<br />
                                             Ground Floor
                                         </p>
                                     </div>
@@ -88,7 +88,7 @@ export default function ContactPage() {
                                         <h3 className="text-xl font-semibold text-gray-900 mb-2">Call Us</h3>
                                         <p className="text-gray-600">
                                             Phone: 078-595444<br />
-                                            Mobile: 9765638444, 9857087290<br />
+                                            Mobile: 9765638444, 9857087230<br />
                                             WhatsApp: 9867903342
                                         </p>
                                     </div>
@@ -103,9 +103,9 @@ export default function ContactPage() {
                                     <div>
                                         <h3 className="text-xl font-semibold text-gray-900 mb-2">Email Us</h3>
                                         <p className="text-gray-600">
-                                            General Inquiry: info@bbconsultancy.com<br />
-                                            Admissions: admissions@bbconsultancy.com<br />
-                                            Support: support@bbconsultancy.com
+                                            General Inquiry: bandbeducation2025@gmail.com<br />
+                                            Admissions: bandbeducation2025@gmail.com<br />
+                                            Support: bandbeducation2025@gmail.com
                                         </p>
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@ export default function ContactPage() {
                                 icon: "📧",
                                 title: "Email Support",
                                 description: "Detailed queries and document review",
-                                action: "Email: support@bbconsultancy.com",
+                                action: "Email: bandbeducation2025@gmail.com",
                                 bgColor: "from-blue-500 to-indigo-600"
                             }
                         ].map((service, index) => (
@@ -324,7 +324,7 @@ export default function ContactPage() {
                     <div className="text-center mb-16">
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Visit Our Office</h2>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                            Located in the heart of Kathmandu, easily accessible by public transport
+                            Located in Devchuli, Nawalparasi, easily accessible by public transport
                         </p>
                     </div>
 
@@ -336,14 +336,14 @@ export default function ContactPage() {
                                     <span className="text-2xl">📍</span>
                                     <div>
                                         <h4 className="font-semibold text-gray-900">Address</h4>
-                                        <p className="text-gray-600">Putalisadak, Kathmandu, Nepal - Near Putali Sadak Chowk</p>
+                                        <p className="text-gray-600">Devchuli-13, Daldale, Nawalparasi, Nepal</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <span className="text-2xl">🚌</span>
                                     <div>
                                         <h4 className="font-semibold text-gray-900">Public Transport</h4>
-                                        <p className="text-gray-600">All major bus routes pass through Putali Sadak</p>
+                                        <p className="text-gray-600">Bus routes available to Devchuli</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
@@ -357,7 +357,7 @@ export default function ContactPage() {
                                     <span className="text-2xl">🏢</span>
                                     <div>
                                         <h4 className="font-semibold text-gray-900">Landmarks</h4>
-                                        <p className="text-gray-600">Near Putali Sadak Chowk</p>
+                                        <p className="text-gray-600">Daldale, Devchuli-13</p>
                                     </div>
                                 </div>
                             </div>
